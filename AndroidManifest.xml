@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.museumaplication"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".IntroActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LogInActivity"
+            android:label="@string/title_activity_log_in" >
+        </activity>
+        <activity
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu" >
+        </activity>
+        <activity
+            android:name=".MuseumActivity"
+            android:label="@string/title_activity_museum" >
+        </activity>
+        <activity
+            android:name=".LocationsActivity"
+            android:label="@string/title_activity_locations" >
+        </activity>
+        <activity
+            android:name=".ExhibitsActivity"
+            android:label="@string/title_activity_exhibits" >
+        </activity>
+        <activity
+            android:name=".BuyersActivity"
+            android:label="@string/title_activity_buyers" >
+        </activity>
+        <activity
+            android:name=".UsersActivity"
+            android:label="@string/title_activity_users" >
+        </activity>
+    </application>
+
+</manifest>
