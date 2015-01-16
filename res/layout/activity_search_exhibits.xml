@@ -6,11 +6,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.museumaplication.SearchExhibitsActivity" >
+    tools:context="com.example.museumaplication.SearchExhibitsActivity"
+    android:background="@drawable/search2" >
 
     <TextView
+        android:id="@+id/TwsearchExhibitsType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Type of exibit:" />
+    <EditText 
+        android:id="@+id/EtsearchExhibitsType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TwsearchExhibitsType"/>
+    <TextView
+        android:id="@+id/TwsearchExhibitsHistoricPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Historic Period:"
+        android:layout_below="@+id/EtsearchExhibitsType" />
+    <EditText 
+        android:id="@+id/EtsearchExhibitsHistoricPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TwsearchExhibitsHistoricPeriod"/>
 
 </RelativeLayout>

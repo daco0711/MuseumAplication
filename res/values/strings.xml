@@ -15,5 +15,7 @@
     <string name="title_activity_add_locations">AddLocationsActivity</string>
     <string name="title_activity_search_exhibits">SearchExhibitsActivity</string>
     <string name="title_activity_add_exhibits">AddExhibitsActivity</string>
+    <string name="title_activity_search_buyers">SearchBuyersActivity</string>
+    <string name="title_activity_add_buyers">AddBuyersActivity</string>
 
 </resources>

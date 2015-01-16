@@ -13,6 +13,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,11 +48,13 @@ public class ExhibitsActivity extends ActionBarActivity {
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
 	
-
+	MediaPlayer mp;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_exhibits);
+		mp=MediaPlayer.create(ExhibitsActivity.this,R.raw.eksponati);
+		mp.start();
 		tableLayoutParams = new LayoutParams();
 		tableRowParams = new TableRow.LayoutParams();
 		textViewLayoutParams = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -66,7 +69,7 @@ public class ExhibitsActivity extends ActionBarActivity {
 		} else {
 			listOfLocations();
 		}
-		}
+	}
 	
 
 	@Override
@@ -224,5 +227,10 @@ public class ExhibitsActivity extends ActionBarActivity {
 	public void orderExhibits(View view){
 		Intent intent = new Intent(this,BuyersActivity.class);
 		startActivity(intent);
+	}
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		mp.release();
 	}
 }

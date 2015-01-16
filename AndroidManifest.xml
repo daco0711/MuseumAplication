@@ -68,6 +68,14 @@
             android:name=".AddExhibitsActivity"
             android:label="@string/title_activity_add_exhibits" >
         </activity>
+        <activity
+            android:name=".SearchBuyersActivity"
+            android:label="@string/title_activity_search_buyers" >
+        </activity>
+        <activity
+            android:name=".AddBuyersActivity"
+            android:label="@string/title_activity_add_buyers" >
+        </activity>
     </application>
 
 </manifest>

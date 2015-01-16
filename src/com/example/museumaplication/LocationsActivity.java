@@ -16,6 +16,7 @@ import com.example.museumadapters.MuseumListAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,11 +48,14 @@ public class LocationsActivity extends ActionBarActivity {
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
+	MediaPlayer mp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_locations);
+		mp = MediaPlayer.create(LocationsActivity.this, R.raw.raptor);
+		mp.start();
 		tableLayoutParams = new LayoutParams();
 		tableRowParams = new TableRow.LayoutParams();
 		textViewLayoutParams = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -172,5 +176,10 @@ public class LocationsActivity extends ActionBarActivity {
 	public void addLocations(View view){
 		Intent intent = new Intent(this,AddLocationsActivity.class);
 		startActivity(intent);
+	}
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		mp.release();
 	}
 }

@@ -6,11 +6,66 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.museumaplication.AddExhibitsActivity" >
+    tools:context="com.example.museumaplication.AddExhibitsActivity"
+    android:background="@drawable/add" >
 
     <TextView
+        android:id="@+id/twAddExhibitsType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:text="Enter Type of the exhibit:" />
+    <EditText 
+        android:id="@+id/etAddExhibitsType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twAddExhibitsType"/>
+    <TextView
+        android:id="@+id/twAddExhibitsDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Dimensions of the exhibit:"
+        android:layout_below="@+id/etAddExhibitsType" />
+    <EditText 
+        android:id="@+id/etAddExhibitsDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twAddExhibitsDimensions"/>
+    <TextView
+        android:id="@+id/twAddExhibitsJurassicPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Historic Period of the exhibit:"
+        android:layout_below="@+id/etAddExhibitsDimensions" />
+    <EditText 
+        android:id="@+id/etAddExhibitsJurassicPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twAddExhibitsJurassicPeriod"/>
+    <TextView
+        android:id="@+id/twAddExhibitsLocationIDFK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Location of the exhibit:"
+        android:layout_below="@+id/etAddExhibitsJurassicPeriod" />
+    <EditText 
+        android:id="@+id/etAddExhibitsLocationIDFK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twAddExhibitsLocationIDFK"/>
+    <TextView
+        android:id="@+id/twAddExhibitsOrderFormsIDFK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Order Form of the exhibit:"
+        android:layout_below="@+id/etAddExhibitsLocationIDFK" />
+    <EditText 
+        android:id="@+id/etAddExhibitsOrderFormsIDFK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/twAddExhibitsOrderFormsIDFK"/>
+    
+    
+	    
+    
 
 </RelativeLayout>

@@ -11,7 +11,7 @@
 
     <TableLayout
         android:id="@+id/tableExhibits"
-        android:layout_width="680px"
+        android:layout_width="800px"
         android:layout_height="wrap_content"
         android:layout_marginTop="100px"
         android:layout_weight="0"
