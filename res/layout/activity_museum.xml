@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="10000px"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -8,9 +8,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.museumaplication.MuseumActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <GridView
+        android:id="@+id/gridView1"
+        android:layout_width="1000000px"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:numColumns="3" >
+    </GridView>
+    
+    <Button
+            android:id="@+id/btnButtonExitMuseum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="exitMuseumActivity"
+            android:text="Back" 
+            android:layout_below="@+id/gridView1"/>
 
 </RelativeLayout>

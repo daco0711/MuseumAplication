@@ -59,7 +59,12 @@ public class LogInActivity extends ActionBarActivity {
 		super.onPause();
 		mp.release();
 	}
-	
+	public void muteRoar(View view){
+		mp.setVolume(0, 0);
+	}
+	public void unMuteRoar(View view){
+		mp.setVolume(1, 1);
+	}
 	
 	
 	

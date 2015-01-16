@@ -11,5 +11,9 @@
     <string name="title_activity_exhibits">ExhibitsActivity</string>
     <string name="title_activity_buyers">BuyersActivity</string>
     <string name="title_activity_users">UsersActivity</string>
+    <string name="title_activity_locations_search">LocationsSearchActivity</string>
+    <string name="title_activity_add_locations">AddLocationsActivity</string>
+    <string name="title_activity_search_exhibits">SearchExhibitsActivity</string>
+    <string name="title_activity_add_exhibits">AddExhibitsActivity</string>
 
 </resources>

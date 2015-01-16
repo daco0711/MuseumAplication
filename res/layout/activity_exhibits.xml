@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="1500px"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -9,10 +9,116 @@
     tools:context="com.example.museumaplication.ExhibitsActivity" 
     android:background="@drawable/exhibits">
 
-    <TextView
+    <TableLayout
+        android:id="@+id/tableExhibits"
+        android:layout_width="680px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:layout_weight="0"
+        android:padding="5dp" >
+        
+       
+        
+        
+		
+        <TableRow android:layout_height="wrap_content" >
+            
+             
+            
+            <TextView
+                android:id="@+id/typeNaslov"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:text="Type"
+                android:textColor="#FFF" 
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/dimensionsNaslov"
+                android:layout_width="120px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/typeNaslov"
+                android:text="Dimensions"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/historicPeriodNaslov"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/historicPeriodNaslov"
+                android:text="Historic Period"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/LocationNameNaslov"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/historicPeriodNaslov"
+                android:text="Found On"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/orderFormNaslov"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/LocationNameNaslov"
+                android:text="Order Form"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+            
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/orderFormNaslov"
+                android:text="Order"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+            
+            
+        </TableRow>
+        
+    </TableLayout>
+    
+    <RelativeLayout 
+        android:id="@+id/footerExhibitsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        
+         <Button 
+        android:id="@+id/buttonSearchExhibits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ovde ubaciti tabelu exhibita i ostalo"
-        android:textColor="#FF0000" />
+        android:text="Search"
+        android:onClick="searchExhibits"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_marginLeft="200px"/>
+         <Button
+         android:id="@+id/buttonAddExhibits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:onClick="addExhibits"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_toRightOf="@+id/buttonSearchExhibits"/>
+         
+         <Button
+         android:id="@+id/buttonOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order"
+        android:onClick="orderExhibits"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_toRightOf="@+id/buttonAddExhibits"/>
+         
+        
+         </RelativeLayout>
 
 </RelativeLayout>

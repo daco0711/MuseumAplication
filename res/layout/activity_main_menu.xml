@@ -65,5 +65,21 @@
         android:height="50px"
         android:textColor="#FF0000"/>
     </RelativeLayout>
-
+<Button 
+        android:id="@+id/buttonUtisaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mute" 
+        android:onClick="utisaj"
+        android:height="50px"
+        android:textColor="#FF0000"/>
+<Button 
+        android:id="@+id/buttonPojacaj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unmute" 
+        android:onClick="pojacaj"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_toRightOf="@+id/buttonUtisaj"/>
 </RelativeLayout>

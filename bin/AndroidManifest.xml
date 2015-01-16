@@ -8,6 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="21" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -49,6 +51,22 @@
         <activity
             android:name=".UsersActivity"
             android:label="@string/title_activity_users" >
+        </activity>
+        <activity
+            android:name=".LocationsSearchActivity"
+            android:label="@string/title_activity_locations_search" >
+        </activity>
+        <activity
+            android:name=".AddLocationsActivity"
+            android:label="@string/title_activity_add_locations" >
+        </activity>
+        <activity
+            android:name=".SearchExhibitsActivity"
+            android:label="@string/title_activity_search_exhibits" >
+        </activity>
+        <activity
+            android:name=".AddExhibitsActivity"
+            android:label="@string/title_activity_add_exhibits" >
         </activity>
     </application>
 

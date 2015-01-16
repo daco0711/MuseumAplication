@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.AddLocationsActivity"
+    android:background="@drawable/add" >
+
+    <TextView
+        android:id="@+id/textViewAddLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location Name" 
+        android:textColor="#FF0000"/>
+    <EditText 
+        android:id="@+id/editTextAddLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddLocationName"/>
+    <TextView
+        android:id="@+id/textViewAddSurface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Surface" 
+        android:textColor="#FF0000"
+        android:layout_below="@+id/editTextAddLocationName"/>
+    <EditText 
+        android:id="@+id/editTextAddSurface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddSurface"/>
+    <TextView
+        android:id="@+id/textViewAddState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="State" 
+        android:textColor="#FF0000"
+        android:layout_below="@+id/editTextAddSurface"/>
+    <EditText 
+        android:id="@+id/editTextAddState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddState"/>
+    <TextView
+        android:id="@+id/textViewAddLeasePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lease Price" 
+        android:textColor="#FF0000"
+        android:layout_below="@+id/editTextAddState"/>
+    <EditText 
+        android:id="@+id/editTextAddLeasePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddLeasePrice"/>
+    <TextView
+        android:id="@+id/textViewAddCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Country" 
+        android:textColor="#FF0000"
+        android:layout_below="@+id/editTextAddLeasePrice"/>
+    <EditText 
+        android:id="@+id/editTextAddCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddCountry"/>
+
+</RelativeLayout>

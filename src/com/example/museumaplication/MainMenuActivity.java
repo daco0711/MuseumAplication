@@ -9,13 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainMenuActivity extends ActionBarActivity {
-
+	MediaPlayer mp;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
-		MediaPlayer mp = MediaPlayer.create(MainMenuActivity.this, R.raw.maintheme);
+		mp = MediaPlayer.create(MainMenuActivity.this, R.raw.maintheme);
 		mp.start();
+		
 		
 	}
 
@@ -61,5 +62,19 @@ public class MainMenuActivity extends ActionBarActivity {
 	{
 		Intent intent = new Intent(this,UsersActivity.class);
 		startActivity(intent);
+	}
+	public void utisaj(View view){
+		mp.setVolume(0, 0);
+		
+	}
+	public void pojacaj(View view){
+		mp.setVolume(1, 1);
+	}
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		mp.release();
 	}
 }
