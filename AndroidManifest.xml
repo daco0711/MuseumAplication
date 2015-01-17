@@ -76,6 +76,14 @@
             android:name=".AddBuyersActivity"
             android:label="@string/title_activity_add_buyers" >
         </activity>
+        <activity
+            android:name=".SearchUsers"
+            android:label="@string/title_activity_search_users" >
+        </activity>
+        <activity
+            android:name=".AddUsers"
+            android:label="@string/title_activity_add_users" >
+        </activity>
     </application>
 
 </manifest>

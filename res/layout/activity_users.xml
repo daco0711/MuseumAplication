@@ -8,9 +8,93 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.museumaplication.UsersActivity" >
 
-    <TextView
+    <TableLayout
+        android:id="@+id/tableUsers"
+        android:layout_width="650px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100px"
+        android:layout_weight="0"
+        android:padding="5dp" >
+        
+       
+        
+        
+		
+        <TableRow android:layout_height="wrap_content" >
+            
+             
+            
+            <TextView
+                android:id="@+id/userIDNaslov"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:textColor="#FFF" 
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/nameNaslov"
+                android:layout_width="120px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/userIDNaslov"
+                android:text="Name"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/nameNaslov"
+                android:text="UserName"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/userName"
+                android:text="Password"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+            <TextView
+                android:id="@+id/isAdministrator"
+                android:layout_width="150px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/password"
+                android:text="Administrator"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+            </TableRow>
+        
+   </TableLayout>
+   
+    <RelativeLayout 
+        android:id="@+id/footerUsersButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        
+         <Button 
+        android:id="@+id/buttonSearchUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ovde ubaciti tabelu korisnika i sve ostalo" />
-
+        android:text="Search"
+        android:onClick="searchUsers"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_marginLeft="200px"/>
+          <Button 
+        android:id="@+id/buttonAddUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:onClick="addUsers"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_marginLeft="200px"
+        android:layout_toRightOf="@+id/buttonSearchUsers"/>
+          </RelativeLayout>
+            
 </RelativeLayout>
