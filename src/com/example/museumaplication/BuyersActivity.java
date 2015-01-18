@@ -3,6 +3,7 @@ package com.example.museumaplication;
 import java.io.IOException;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -35,7 +36,10 @@ public class BuyersActivity extends ActionBarActivity {
 	public static String getBuyersAction = "MuseumService/GetBuyers";
 	public static String TAG = "BuyersActivity";
 	TableLayout table;
-	public static String searchResults = "Search_Results";
+	public static String searchName = "Search_Name";
+	public static String searchSurname = "Search_Surname";
+	public static String findBuyers = "findBuyers";
+	public static String findBuyersAction = "MuseumService/FindBuyers";
 
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
@@ -53,8 +57,10 @@ public class BuyersActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null
-				&& getIntent().getExtras().containsKey(searchResults)) {
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchName) && getIntent().getExtras().containsKey(searchSurname)) {
+			String name = getIntent().getExtras().getString(searchName);
+			String surname = getIntent().getExtras().getString(searchSurname);
+			searchBuyers(name, surname);
 		} else {
 			listOfBuyers();
 		}
@@ -79,6 +85,61 @@ public class BuyersActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+		
+		public void searchBuyers(final String name,final String surname){
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					Log.i(TAG, "RUN FIND LOCATIONS: " + name + surname);
+					SoapObject request = new SoapObject(namespace,findBuyers);
+					PropertyInfo propName = new PropertyInfo();
+					propName.name = "buyersName";
+					propName.type = PropertyInfo.STRING_CLASS;
+					request.addProperty(propName, name);
+					PropertyInfo propSurname = new PropertyInfo();
+					propSurname.name = "buyersSurname";
+					propSurname.type = PropertyInfo.STRING_CLASS;
+					request.addProperty(propSurname,surname);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(request);
+					HttpTransportSE transport = new HttpTransportSE(URL);
+					Log.i(TAG, "Pozivam WCF... [" + URL + "]");
+					try {
+						Log.i(TAG, "before call");
+						transport.debug = true;
+						transport.call(findBuyersAction, envelope);
+						Log.i(TAG, "after call");
+						SoapObject response = (SoapObject) envelope.getResponse();
+						if (response != null && response.getPropertyCount() > 0) {
+							System.out.println("RETURN: " + response.getPropertyCount());
+							for(int i=0; i<response.getPropertyCount(); i++) {
+								SoapObject buyers = (SoapObject) response.getProperty(i);
+								makeRow(buyers);
+							}
+						}
+						Log.i(TAG, "name" + name);
+						Log.i(TAG, "Surname" + surname);
+					} catch (IOException e) {
+						e.printStackTrace();
+
+					} catch (XmlPullParserException e) {
+						Log.i(LocationsActivity.TAg, "XML pull");
+						e.printStackTrace();
+					}
+				}
+			});
+			t.start();
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	
+	
 	public void listOfBuyers(){
 		Thread t = new Thread(new Runnable() {
 			@Override

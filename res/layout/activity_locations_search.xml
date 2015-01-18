@@ -8,7 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.museumaplication.LocationsSearchActivity"
     android:background="@drawable/search2" >
-
+	<RelativeLayout 
+        android:id="@+id/footerLocationsTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="200px">
+    </RelativeLayout>
+    
     <TextView
         android:id="@+id/textViewSearchLocationsName"
         android:layout_width="wrap_content"
@@ -21,6 +28,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewSearchLocationsName" />
+    
+    <Button
+        android:id="@+id/idbuttonsearchFoundLocations"
+        android:layout_below="@+id/editTextSearchLocationsName"
+        android:text="OK"
+        android:onClick="findLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        </Button>
     
 
 </RelativeLayout>

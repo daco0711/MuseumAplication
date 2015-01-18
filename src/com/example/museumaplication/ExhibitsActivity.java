@@ -41,8 +41,11 @@ public class ExhibitsActivity extends ActionBarActivity {
 	public static String getExhibitsAction = "MuseumService/GetExhibits";
 	public static String getLocationByIDAction = "MuseumService/GetLocationsByID";
 	public static String TAG = "ExhibitsActivity";
+	public static String findExhibits = "findExhibits";
+	public static String findExhibitsAction = "MuseumService/FindExhibits";
 	TableLayout table;
-	public static String searchResults = "Search_Results";
+	public static String searchType = "SearchType";
+	public static String searchHistoricPeriod = "SearchPeriod";
 
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
@@ -64,8 +67,10 @@ public class ExhibitsActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null
-				&& getIntent().getExtras().containsKey(searchResults)) {
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchType)&& getIntent().getExtras().containsKey(searchHistoricPeriod)) {
+			String type = getIntent().getExtras().getString(searchType);
+			String historicPeriod = getIntent().getExtras().getString(searchHistoricPeriod);
+			searchList(type, historicPeriod);
 		} else {
 			listOfLocations();
 		}
@@ -131,6 +136,60 @@ public class ExhibitsActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
 	}
+	public void searchList(final String type,final String historicPeriod){
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Log.i(TAG, "RUN FIND Exhibits: " + type + historicPeriod);
+				SoapObject request = new SoapObject(namespace,findExhibits);
+				PropertyInfo propType = new PropertyInfo();
+				propType.name = "type";
+				propType.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propType, type);
+				PropertyInfo propHistoricPeriod = new PropertyInfo();
+				propHistoricPeriod.name = "historicPeriod";
+				propHistoricPeriod.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propHistoricPeriod,historicPeriod);
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+				envelope.dotNet = true;
+				envelope.setOutputSoapObject(request);
+				HttpTransportSE transport = new HttpTransportSE(URL);
+				Log.i(TAG, "Pozivam WCF... [" + URL + "]");
+				try {
+					Log.i(TAG, "before call");
+					transport.debug = true;
+					transport.call(findExhibitsAction, envelope);
+					Log.i(TAG, "after call");
+					SoapObject response = (SoapObject) envelope.getResponse();
+					if (response != null && response.getPropertyCount() > 0) {
+						System.out.println("RETURN: " + response.getPropertyCount());
+						for(int i=0; i<response.getPropertyCount(); i++) {
+							SoapObject exhibit = (SoapObject) response.getProperty(i);
+							makeRow(exhibit);
+							
+						}
+					}
+					Log.i(TAG, "Hist" + propHistoricPeriod);
+					Log.i(TAG, "Type" + propType);
+				} catch (IOException e) {
+					e.printStackTrace();
+
+				} catch (XmlPullParserException e) {
+					Log.i(LocationsActivity.TAg, "XML pull");
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+		
+	
 	private void makeRow(SoapObject object){
 		TableRow tableRow = new TableRow(this);
 		

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -42,9 +43,11 @@ public class LocationsActivity extends ActionBarActivity {
 	public static String getLocations = "getLocations";
 	public static String getLocationsAction = "MuseumService/GetLocations";
 	public static String TAg = "LocationsActivity";
+	public static String findLocations = "findLocations";
+	public static String findLocationsAction = "MuseumService/FindLocations";
+	
 	TableLayout table;
-	public static String searchResults = "Search_Results";
-
+	public static String searchTerm = "Search_Results";
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
@@ -65,8 +68,9 @@ public class LocationsActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchResults)) {
-			//locations_list = (ArrayList<HashMap<String,String>>) getIntent().getExtras().get(searchResults);
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchTerm)) {
+			String searchName = getIntent().getExtras().getString(searchTerm);
+			searchLocations(searchName);
 		} else {
 			listOfLocations();
 		}
@@ -91,6 +95,51 @@ public class LocationsActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	public void searchLocations(final String name) {
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Log.i(TAg, "RUN FIND LOCATIONS: " + name);
+				SoapObject request = new SoapObject(namespace,findLocations);
+				PropertyInfo prop = new PropertyInfo();
+				prop.name = "locationName";
+				prop.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(prop, name);
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+				envelope.dotNet = true;
+				envelope.setOutputSoapObject(request);
+				HttpTransportSE transport = new HttpTransportSE(URL);
+				Log.i(TAg, "Pozivam WCF... [" + URL + "]");
+				try {
+					Log.i(TAg, "before call");
+					transport.debug = true;
+					transport.call(findLocationsAction, envelope);
+					Log.i(TAg, "after call");
+					SoapObject response = (SoapObject) envelope.getResponse();
+					if (response != null && response.getPropertyCount() > 0) {
+						System.out.println("RETURN: " + response.getPropertyCount());
+						for(int i=0; i<response.getPropertyCount(); i++) {
+							SoapObject location = (SoapObject) response.getProperty(i);
+							makeRow(location);
+						}
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+
+				} catch (XmlPullParserException e) {
+					Log.i(LocationsActivity.TAg, "XML pull");
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void listOfLocations(){
 		Thread t = new Thread(new Runnable() {
 			@Override

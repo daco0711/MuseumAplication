@@ -1,9 +1,15 @@
 package com.example.museumaplication;
 
+import org.ksoap2.serialization.SoapObject;
+
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class SearchUsers extends ActionBarActivity {
 
@@ -30,5 +36,20 @@ public class SearchUsers extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void findUsers(View view){
+		EditText txtName = (EditText) findViewById(R.id.ETsearchUsersName);
+		String name = txtName.getText().toString();
+		EditText txtUserName = (EditText) findViewById(R.id.ETsearchUserName);
+		String userName = txtUserName.getText().toString();
+		if (name.equals("") && userName.equals("")){
+			Toast.makeText(this, "You must enter Name or UserName of the User!", Toast.LENGTH_LONG).show();
+		}
+		else{
+			Intent intent = new Intent(this,UsersActivity.class);
+			intent.putExtra(UsersActivity.searchName, name);
+			intent.putExtra(UsersActivity.searchUserName, userName);
+			startActivity(intent);
+		}
 	}
 }

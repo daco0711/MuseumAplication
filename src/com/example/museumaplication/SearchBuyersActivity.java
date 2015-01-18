@@ -1,9 +1,15 @@
 package com.example.museumaplication;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class SearchBuyersActivity extends ActionBarActivity {
 
@@ -31,4 +37,21 @@ public class SearchBuyersActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void findBuyers(View view){
+			EditText txtSearchName = (EditText) findViewById(R.id.etSearchBuyersName);
+			String name = txtSearchName.getText().toString();
+			EditText txtSearchSurname = (EditText) findViewById(R.id.etSearchBuyersSurname);
+			String surName = txtSearchSurname.getText().toString();
+			if (name.equals("") && surName.equals("")) {
+					Toast.makeText(this, "You must enter name or surname of the Buyer!", Toast.LENGTH_LONG).show();
+				return;
+			}else {
+				Intent intent = new Intent(this, BuyersActivity.class);
+				Log.i(SearchBuyersActivity.this.getClass().getSimpleName(), "IME: " + name + ", SURNAME: " + surName);
+				intent.putExtra(BuyersActivity.searchName, name);
+				intent.putExtra(BuyersActivity.searchSurname, surName);
+				startActivity(intent);
+			}
+		}
 }

@@ -16,7 +16,7 @@
         android:text="Enter Name of the Buyer:" />
     <EditText 
         android:id="@+id/etSearchBuyersName"
-        android:layout_width="wrap_content"
+        android:layout_width="100px"
         android:layout_height="wrap_content"
         android:layout_below="@+id/twSearchBuyersName"/>
     <TextView
@@ -30,6 +30,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/twSearchBuyersSurname"/>
+    <Button 
+        android:id="@+id/buttonSearchBuyersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="findBuyers"
+        android:text="OK"
+        android:layout_below="@+id/etSearchBuyersSurname"/>
     
 
 </RelativeLayout>

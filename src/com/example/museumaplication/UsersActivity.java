@@ -1,8 +1,10 @@
 package com.example.museumaplication;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream.PutField;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -35,8 +37,11 @@ public class UsersActivity extends ActionBarActivity {
 	public static String getUsers = "getUsers";
 	public static String getusersAction = "MuseumService/GetUsers";
 	public static String TAG = "UsersActivity";
+	public static String findUsers = "findUsers";
+	public static String findusersAction = "MuseumService/FindUsers";
 	TableLayout table;
-	public static String searchResults = "Search_Results";
+	public static String searchName = "SearchName";
+	public static String searchUserName = "SearchUserName";
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
@@ -55,8 +60,10 @@ public class UsersActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null
-				&& getIntent().getExtras().containsKey(searchResults)) {
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchName)&& getIntent().getExtras().containsKey(searchUserName)) {
+		String name = getIntent().getExtras().getString(searchName);
+		String userName = getIntent().getExtras().getString(searchUserName);
+		findUsers(name,userName);
 		} else {
 			listOfUsers();
 		}
@@ -81,6 +88,58 @@ public class UsersActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	public void findUsers(final String name,final String userName){
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Log.i(TAG, "RUN FIND Exhibits: " + name	 + userName);
+				SoapObject request = new SoapObject(namespace,findUsers);
+				PropertyInfo propName = new PropertyInfo();
+				propName.name = "name";
+				propName.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propName, name);
+				PropertyInfo propUserName = new PropertyInfo();
+				propUserName.name = "userName";
+				propUserName.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propUserName,userName);
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+				envelope.dotNet = true;
+				envelope.setOutputSoapObject(request);
+				HttpTransportSE transport = new HttpTransportSE(URL);
+				Log.i(TAG, "Pozivam WCF... [" + URL + "]");
+				try {
+					Log.i(TAG, "before call");
+					transport.debug = true;
+					transport.call(findusersAction, envelope);
+					Log.i(TAG, "after call");
+					SoapObject response = (SoapObject) envelope.getResponse();
+					if (response != null && response.getPropertyCount() > 0) {
+						System.out.println("RETURN: " + response.getPropertyCount());
+						for(int i=0; i<response.getPropertyCount(); i++) {
+							SoapObject exhibit = (SoapObject) response.getProperty(i);
+							makeRow(exhibit);
+							
+						}
+					}
+					Log.i(TAG, "Name" + propName);
+					Log.i(TAG, "UserName" + propUserName);
+				} catch (IOException e) {
+					e.printStackTrace();
+
+				} catch (XmlPullParserException e) {
+					Log.i(LocationsActivity.TAg, "XML pull");
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void listOfUsers(){
 		Thread t = new Thread(new Runnable() {
 			@Override

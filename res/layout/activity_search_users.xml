@@ -30,6 +30,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVsearchUserName" />
+    <Button 
+        android:id="@+id/buttonSearchUsersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="findUsers"
+        android:layout_below="@+id/ETsearchUserName"/>
     
 
 </RelativeLayout>
