@@ -28,7 +28,7 @@ public class BuyersActivity extends ActionBarActivity {
 	public static final String buyersSurname = "BuyersSurname";
 	public static final String buyersAddress = "BuyersAddress";
 	public static final String buyersCountry = "BuyersCountry";
-	public static final String ip = "192.168.1.8";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";
@@ -40,6 +40,13 @@ public class BuyersActivity extends ActionBarActivity {
 	public static String searchSurname = "Search_Surname";
 	public static String findBuyers = "findBuyers";
 	public static String findBuyersAction = "MuseumService/FindBuyers";
+	public static String addName = "addName";
+	public static String addSurname = "addSurname";
+	public static String addAddress = "addAddress";
+	public static String addCountry = "addAddress";
+	public static String addBuyers = "addBuyers";
+	public static String addBuyersAction = "MuseumService/AddBuyers";
+	
 
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
@@ -57,7 +64,13 @@ public class BuyersActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchName) && getIntent().getExtras().containsKey(searchSurname)) {
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(addName) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addSurname) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addAddress) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addCountry)){
+			String name = getIntent().getExtras().getString(addName);
+			String surname = getIntent().getExtras().getString(addSurname);
+			String address = getIntent().getExtras().getString(addAddress);
+			String country = getIntent().getExtras().getString(addCountry);
+			addBuyers(name,surname,address,country);
+		}else if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchName) && getIntent().getExtras().containsKey(searchSurname)) {
 			String name = getIntent().getExtras().getString(searchName);
 			String surname = getIntent().getExtras().getString(searchSurname);
 			searchBuyers(name, surname);
@@ -85,6 +98,56 @@ public class BuyersActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+		public void addBuyers(final String name,final String surname,final String address,final String country){
+			Thread t = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					Log.i(TAG, "RUN ADD BUYERS: " + name + ", " + surname + ", " + address + ", " + country);
+					SoapObject request = new SoapObject(namespace, addBuyers);
+					PropertyInfo propName = new PropertyInfo();
+					propName.name = "buyersName";
+					propName.type = PropertyInfo.STRING_CLASS;
+					request.addProperty(propName, name);
+					PropertyInfo propSurname = new PropertyInfo();
+					propSurname.name = "buyersSurname";
+					propSurname.type = PropertyInfo.STRING_CLASS;
+					request.addProperty(propSurname,surname);
+					PropertyInfo propAddress = new PropertyInfo();
+					propAddress.name = "buyersAddress";
+					propAddress.type = PropertyInfo.STRING_CLASS;
+					request.addProperty(propAddress,address);
+					PropertyInfo propCountry = new PropertyInfo();
+					propCountry.name = "buyersCountry";
+					propSurname.type = PropertyInfo.STRING_CLASS;
+					request.addProperty(propCountry,country);
+					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+					envelope.dotNet = true;
+					envelope.setOutputSoapObject(request);
+					HttpTransportSE transport = new HttpTransportSE(URL);
+					Log.i(TAG, "Pozivam WCF... [" + URL + "]");
+					try {
+						Log.i(TAG, "before call");
+						transport.debug = true;
+						transport.call(addBuyersAction, envelope);
+						Log.i(TAG, "after call");
+						listOfBuyers();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (XmlPullParserException e) {
+						Log.i(LocationsActivity.TAg, "XML pull");
+						e.printStackTrace();
+					}
+				}
+			});
+			t.start();
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		
 		public void searchBuyers(final String name,final String surname){
 			Thread t = new Thread(new Runnable() {
@@ -137,9 +200,6 @@ public class BuyersActivity extends ActionBarActivity {
 			}
 		}
 		
-		
-	
-	
 	public void listOfBuyers(){
 		Thread t = new Thread(new Runnable() {
 			@Override

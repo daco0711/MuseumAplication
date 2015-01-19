@@ -30,7 +30,7 @@ public class UsersActivity extends ActionBarActivity {
 	public static final String userName = "UserName";
 	public static final String password = "Password";
 	public static final String isAdministrator = "IsAdministrator";
-	public static final String ip = "192.168.1.8";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";
@@ -45,6 +45,13 @@ public class UsersActivity extends ActionBarActivity {
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
+	public static String addName = "Name";
+	public static String addUserName = "UserName";
+	public static String addPassword = "Password";
+	public static String addIsAdministrator = "IsAdministartor";
+	public static String addUsers = "addUsers";
+	public static String addUsersAction = "MuseumService/AddUsers";
+	
 	
 
 	@Override
@@ -60,7 +67,14 @@ public class UsersActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchName)&& getIntent().getExtras().containsKey(searchUserName)) {
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(addName)&& getIntent().getExtras() != null && getIntent().getExtras().containsKey(addUserName)&& getIntent().getExtras() != null && getIntent().getExtras().containsKey(addPassword)&& getIntent().getExtras() != null && getIntent().getExtras().containsKey(addIsAdministrator)){
+			String name = getIntent().getExtras().getString(addPassword);
+			String userName = getIntent().getExtras().getString(addUserName);
+			String password = getIntent().getExtras().getString(addPassword);
+			String isAdministartor = getIntent().getExtras().getString(addIsAdministrator);
+			addUsers(name,userName,password,isAdministartor);
+		}
+		else if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchName)&& getIntent().getExtras().containsKey(searchUserName)) {
 		String name = getIntent().getExtras().getString(searchName);
 		String userName = getIntent().getExtras().getString(searchUserName);
 		findUsers(name,userName);
@@ -88,6 +102,55 @@ public class UsersActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	public void addUsers(final String name,final String userName,final String password,final String isAdministartor){
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Log.i(TAG, "RUN ADD USERS: " + name + ", " + userName + ", " + password + ", " + isAdministartor);
+				SoapObject request = new SoapObject(namespace, addUsers);
+				PropertyInfo propName = new PropertyInfo();
+				propName.name = "name";
+				propName.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propName, name);
+				PropertyInfo propUserName = new PropertyInfo();
+				propUserName.name = "userName";
+				propUserName.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propUserName,userName);
+				PropertyInfo propPassword = new PropertyInfo();
+				propPassword.name = "password";
+				propPassword.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propPassword,password);
+				PropertyInfo propIsAdmin = new PropertyInfo();
+				propIsAdmin.name = "isAdministrator";
+				propIsAdmin.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propIsAdmin,isAdministartor);
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+				envelope.dotNet = true;
+				envelope.setOutputSoapObject(request);
+				HttpTransportSE transport = new HttpTransportSE(URL);
+				Log.i(TAG, "Pozivam WCF... [" + URL + "]");
+				try {
+					Log.i(TAG, "before call");
+					transport.debug = true;
+					transport.call(addUsersAction, envelope);
+					Log.i(TAG, "after call");
+					listOfUsers();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					Log.i(LocationsActivity.TAg, "XML pull");
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void findUsers(final String name,final String userName){
 		Thread t = new Thread(new Runnable() {
 			@Override

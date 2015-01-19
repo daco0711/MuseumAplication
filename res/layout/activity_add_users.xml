@@ -54,6 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TVaddIsAdministrator" />
+    <Button 
+        android:id="@+id/buttonAddUsersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="addUsers"
+        android:layout_below="@+id/ETaddIsAdministrator"/>
     
     
     

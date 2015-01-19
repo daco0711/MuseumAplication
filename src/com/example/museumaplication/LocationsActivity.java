@@ -31,7 +31,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class LocationsActivity extends ActionBarActivity {
-	public static final String ip = "192.168.1.8";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static final String locationName = "LocationName";
 	public static final String surface = "Surface";
@@ -45,7 +45,13 @@ public class LocationsActivity extends ActionBarActivity {
 	public static String TAg = "LocationsActivity";
 	public static String findLocations = "findLocations";
 	public static String findLocationsAction = "MuseumService/FindLocations";
-	
+	public static String addname = "locationName";
+	public static String addsurface = "Surface";
+	public static String addstate = "State";
+	public static String addLease = "Lease Price";
+	public static String addCountry = "Country";
+	public static String addLocations = "addLocations";
+	public static String addLocationsAction = "MuseumService/AddLocations";
 	TableLayout table;
 	public static String searchTerm = "Search_Results";
 	LayoutParams tableLayoutParams;
@@ -68,7 +74,14 @@ public class LocationsActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
-		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchTerm)) {
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(addname) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addsurface) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addstate) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addLease) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addCountry)){
+			String dodajname = getIntent().getExtras().getString(addname);
+			String dodajsurface = getIntent().getExtras().getString(addsurface);
+			String dodajstate = getIntent().getExtras().getString(addstate);
+			String dodajleasePrice = getIntent().getExtras().getString(addLease);
+			String dodajcountry = getIntent().getExtras().getString(addCountry);
+			addLocations(dodajname,dodajsurface,dodajstate,dodajleasePrice,dodajcountry);
+		}else if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchTerm)) {
 			String searchName = getIntent().getExtras().getString(searchTerm);
 			searchLocations(searchName);
 		} else {
@@ -94,7 +107,77 @@ public class LocationsActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	public void addLocations(final String name,final String surface,final String state,final String leasePrice,final String country){
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				SoapObject request = new SoapObject(namespace, addLocations);
+				
+				PropertyInfo propName = new PropertyInfo();
+				propName.setName("locationName");
+				propName.setType(PropertyInfo.STRING_CLASS);
+				propName.setValue(name);
+				request.addProperty(propName);
+				
+				
+				PropertyInfo propSurface = new PropertyInfo();
+				propSurface.setName("surface");
+				propSurface.setType(PropertyInfo.STRING_CLASS);
+				propSurface.setValue(surface);
+				request.addProperty(propSurface);
+				
+				PropertyInfo propState = new PropertyInfo();
+				propState.setName("state");
+				propState.setType(PropertyInfo.STRING_CLASS);
+				propState.setValue(state);
+				request.addProperty(propState);
+				
+				PropertyInfo propLeasePrice = new PropertyInfo();
+				propLeasePrice.setName("leasePrice");
+				propLeasePrice.setType(PropertyInfo.STRING_CLASS);
+				propLeasePrice.setValue(leasePrice);
+				request.addProperty(propLeasePrice);
+				
+				PropertyInfo propMuseumId = new PropertyInfo();
+				propMuseumId.setName("museumIdFK");
+				propMuseumId.setType(PropertyInfo.INTEGER_CLASS);
+				request.addProperty(propMuseumId);
+				
+				PropertyInfo propCountry = new PropertyInfo();
+				propCountry.setName("country");
+				propCountry.setType(PropertyInfo.STRING_CLASS);
+				propCountry.setValue(country);
+				request.addProperty(propCountry);
+				
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+				envelope.implicitTypes = true;
+				envelope.dotNet = true;
+				envelope.encodingStyle = SoapSerializationEnvelope.XSD;
+				HttpTransportSE transport = new HttpTransportSE(URL);
+				Log.i(TAg, "Pozivam WCF... [" + URL + "]");
+				try {
+					Log.i(TAg, "before call");
+					Log.i(TAg, "RUN ADD LOCATIONS: " + propName.getValue() + ", " + propSurface.getValue() + ", " + propState.getValue() + ", " + propLeasePrice.getValue() + ", " + propMuseumId.getValue() + ", " + propCountry.getValue());
+					transport.debug = true;
+					transport.call(addLocationsAction, envelope);
+					Log.i(TAg, "after call");
+					listOfLocations();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (XmlPullParserException e) {
+					Log.i(LocationsActivity.TAg, "XML pull");
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void searchLocations(final String name) {
 		Thread t = new Thread(new Runnable() {
 			@Override
@@ -227,7 +310,6 @@ public class LocationsActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onPause();
 		mp.release();
 	}

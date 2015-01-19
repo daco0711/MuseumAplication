@@ -1,9 +1,13 @@
 package com.example.museumaplication;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddUsers extends ActionBarActivity {
 
@@ -30,5 +34,27 @@ public class AddUsers extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void addUsers(View view){
+		EditText txtName = (EditText) findViewById(R.id.ETaddUsersName);
+		String name = txtName.getText().toString();
+		EditText txtUserName = (EditText) findViewById(R.id.ETaddUserName);
+		String userName = txtUserName.getText().toString();
+		EditText txtPassword = (EditText) findViewById(R.id.ETaddPassword);
+		String password = txtPassword.getText().toString();
+		EditText txtIsAdministrator = (EditText) findViewById(R.id.ETaddIsAdministrator);
+		String isAdmin = txtIsAdministrator.getText().toString();
+		
+		if (name.equals("") && userName.equals("") && password.equals("") && isAdmin.equals("")){
+			Toast.makeText(this, "Enter all fields", Toast.LENGTH_LONG).show();
+		}
+		else{
+			Intent intent = new Intent(this,UsersActivity.class);
+			intent.putExtra(UsersActivity.addName, name);
+			intent.putExtra(UsersActivity.addUserName, userName);
+			intent.putExtra(UsersActivity.addPassword, password);
+			intent.putExtra(UsersActivity.addIsAdministrator, isAdmin);
+			startActivity(intent);
+		}
 	}
 }

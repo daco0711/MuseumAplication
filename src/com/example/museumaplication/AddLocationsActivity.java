@@ -1,9 +1,13 @@
 package com.example.museumaplication;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddLocationsActivity extends ActionBarActivity {
 
@@ -31,5 +35,29 @@ public class AddLocationsActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	//ovde napraviti metodu za dodavanje nove lokacije
+	public void aDDLocations(View view){
+		EditText txtLocationName = (EditText) findViewById(R.id.editTextAddLocationName);
+		String name = txtLocationName.getText().toString().trim();
+		EditText txtSurface = (EditText) findViewById(R.id.editTextAddSurface);
+		String surface = txtSurface.getText().toString().trim();
+		EditText txtState = (EditText) findViewById(R.id.editTextAddState);
+		String state = txtState.getText().toString().trim();
+		EditText txtLease = (EditText) findViewById(R.id.editTextAddLeasePrice);
+		String lease = txtLease.getText().toString().trim();
+		EditText txtCountry = (EditText) findViewById(R.id.editTextAddCountry);
+		String country = txtCountry.getText().toString().trim();
+		if (name.equals("") && surface.equals("") && state.equals("") && lease.equals("") && country.equals("")){
+			Toast.makeText(this, "You must enter all required fields!", Toast.LENGTH_LONG).show();
+		}
+		else{
+			Intent intent = new Intent(this,LocationsActivity.class);
+			intent.putExtra(LocationsActivity.addname, name);
+			intent.putExtra(LocationsActivity.addsurface, surface);
+			intent.putExtra(LocationsActivity.addstate, state);
+			intent.putExtra(LocationsActivity.addLease, lease);
+			intent.putExtra(LocationsActivity.addCountry, country);
+			startActivity(intent);
+		}
+				
+	}
 }

@@ -52,6 +52,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/twAddBuyersCountry"/>
+    <Button 
+        android:id="@+id/buttonAddBuyersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="addBuyers"
+        android:layout_below="@+id/etAddBuyersCountry"/>
+    
     
     
     

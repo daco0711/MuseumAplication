@@ -1,9 +1,13 @@
 package com.example.museumaplication;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddBuyersActivity extends ActionBarActivity {
 
@@ -30,5 +34,25 @@ public class AddBuyersActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void addBuyers(View view){
+		EditText txtName = (EditText) findViewById(R.id.etAddBuyersName);
+		String name = txtName.getText().toString();
+		EditText txtSurname = (EditText) findViewById(R.id.etAddBuyersSurname);
+		String surname = txtSurname.getText().toString();
+		EditText txtAddress = (EditText) findViewById(R.id.etAddBuyersAddress);
+		String address = txtAddress.getText().toString();
+		EditText txtCountry = (EditText) findViewById(R.id.etAddBuyersCountry);
+		String country = txtCountry.getText().toString();
+		if(name.equals("") && surname.equals("") && address.equals("") && country.equals("")){
+			Toast.makeText(this, "You must enter required fields!", Toast.LENGTH_LONG).show();
+		}else{
+			Intent intent = new Intent(this,BuyersActivity.class);
+			intent.putExtra(BuyersActivity.addName, name);
+			intent.putExtra(BuyersActivity.addSurname, surname);
+			intent.putExtra(BuyersActivity.addAddress, address);
+			intent.putExtra(BuyersActivity.addCountry, country);
+			startActivity(intent);
+		}
 	}
 }

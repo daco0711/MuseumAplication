@@ -32,7 +32,7 @@ public class ExhibitsActivity extends ActionBarActivity {
 	public static final String historicPeriod = "HistoricPeriod";
 	public static final String locationid = "LocationIdFK";
 	public static  final String orderFormId = "OrderFormIdFK";
-	public static final String ip = "192.168.1.8";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";
@@ -46,6 +46,16 @@ public class ExhibitsActivity extends ActionBarActivity {
 	TableLayout table;
 	public static String searchType = "SearchType";
 	public static String searchHistoricPeriod = "SearchPeriod";
+	public static String addType = "addType";
+	public static String addDimensions = "addDimensions";
+	public static String addPeriod = "addPeriod";
+	public static String addLocationID = "addLocationIDFK";
+	public static String addOrderFormIDFK = "addOrderFormIDFK";
+	public static String addExhibits = "addExhibits";
+	public static String addExhibitsAction = "MuseumService/AddExhibits";
+	public Integer locationID = null;
+	public Integer orderFormID = null;
+	
 
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
@@ -67,6 +77,14 @@ public class ExhibitsActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
+		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(addType) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addDimensions) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addPeriod) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addLocationID) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addOrderFormIDFK)){
+			String type = getIntent().getExtras().getString(addType);
+			String dimensions = getIntent().getExtras().getString(addDimensions);
+			String period = getIntent().getExtras().getString(addPeriod);
+			String locationIDFK = getIntent().getExtras().getString(addLocationID);
+			String orderFormIDFK = getIntent().getExtras().getString(addOrderFormIDFK);
+			addExhibits(type,dimensions,period,locationIDFK,orderFormIDFK);
+		}
 		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchType)&& getIntent().getExtras().containsKey(searchHistoricPeriod)) {
 			String type = getIntent().getExtras().getString(searchType);
 			String historicPeriod = getIntent().getExtras().getString(searchHistoricPeriod);
@@ -94,6 +112,85 @@ public class ExhibitsActivity extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void addExhibits(final String type,final String dimensions,final String period,final String locationIDFK,final String orderFormIDFK){
+		//locationID = Integer.parseInt(locationIDFK);
+		//orderFormID = Integer.parseInt(orderFormIDFK);
+		
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Log.i(TAG, "RUN ADD Exhibits: " + type + dimensions + period + locationIDFK + orderFormIDFK);
+				SoapObject request = new SoapObject(namespace,addExhibits);
+				PropertyInfo propType = new PropertyInfo();
+				propType.name = "type";
+				propType.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propType, type);
+				
+				PropertyInfo propDimensions = new PropertyInfo();
+				propDimensions.name = "dimensions";
+				propDimensions.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propDimensions,dimensions);
+				
+				PropertyInfo propHistoricPeriod = new PropertyInfo();
+				propHistoricPeriod.name = "historicPeriod";
+				propHistoricPeriod.type = PropertyInfo.STRING_CLASS;
+				request.addProperty(propHistoricPeriod,historicPeriod);
+				
+				int locID = Integer.parseInt(locationIDFK);
+				PropertyInfo propLocationIDFK = new PropertyInfo();
+				propLocationIDFK.name = "locationIdFK";
+				propLocationIDFK.type = PropertyInfo.INTEGER_CLASS;
+				request.addProperty(propLocationIDFK,locID);
+				
+				int ordID = Integer.parseInt(orderFormIDFK);
+				PropertyInfo proporderFormIDFK = new PropertyInfo();
+				proporderFormIDFK.name = "orderFormIdFK";
+				proporderFormIDFK.type = PropertyInfo.INTEGER_CLASS;
+				request.addProperty(proporderFormIDFK,ordID);
+				
+				
+				
+				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+				envelope.dotNet = true;
+				envelope.setOutputSoapObject(request);
+				HttpTransportSE transport = new HttpTransportSE(URL);
+				Log.i(TAG, "Pozivam WCF... [" + URL + "]");
+				try {
+					Log.i(TAG, "before call");
+					transport.debug = true;
+					transport.call(addExhibitsAction, envelope);
+					Log.i(TAG, "after call");
+					SoapObject response = (SoapObject) envelope.getResponse();
+					if (response != null && response.getPropertyCount() > 0) {
+						System.out.println("RETURN: " + response.getPropertyCount());
+						for(int i=0; i<response.getPropertyCount(); i++) {
+							SoapObject addexhibit = (SoapObject) response.getProperty(i);
+							makeRow(addexhibit);
+							
+						}
+					}
+					
+					Log.i(TAG, "Hist" + period);
+					Log.i(TAG, "Type" + type);
+					Log.i(TAG, "Dim" + dimensions);
+					Log.i(TAG, "location" + locationID);
+					Log.i(TAG, "orderForm" + orderFormID);
+				} catch (IOException e) {
+					e.printStackTrace();
+
+				} catch (XmlPullParserException e) {
+					Log.i(LocationsActivity.TAg, "XML pull");
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void listOfLocations()

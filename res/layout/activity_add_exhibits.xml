@@ -63,6 +63,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/twAddExhibitsOrderFormsIDFK"/>
+    <Button 
+        android:id="@+id/buttonAddExhibitsOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="addExhibits"
+        android:layout_below="@+id/etAddExhibitsOrderFormsIDFK"/>
     
     
 	    
