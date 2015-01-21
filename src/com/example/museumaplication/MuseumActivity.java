@@ -26,7 +26,7 @@ import android.widget.GridView;
 
 public class MuseumActivity extends ActionBarActivity {
 	MediaPlayer mp;
-	public static final String ip = "192.168.1.5";
+	public static final String ip = "192.168.1.3";
 	public static final int port = 80;
 
 	public static final String Museum_name = "MuseumName";

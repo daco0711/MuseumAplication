@@ -1,6 +1,7 @@
 package com.example.museumaplication;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -14,8 +15,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableLayout;
@@ -24,11 +28,13 @@ import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
 public class BuyersActivity extends ActionBarActivity {
+	
 	public static final String buyersName = "BuyersName";
 	public static final String buyersSurname = "BuyersSurname";
 	public static final String buyersAddress = "BuyersAddress";
 	public static final String buyersCountry = "BuyersCountry";
-	public static final String ip = "192.168.1.5";
+	public static final String buyerId = "BuyersId";
+	public static final String ip = "192.168.1.3";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";
@@ -46,6 +52,8 @@ public class BuyersActivity extends ActionBarActivity {
 	public static String addCountry = "addAddress";
 	public static String addBuyers = "addBuyers";
 	public static String addBuyersAction = "MuseumService/AddBuyers";
+	
+	HashMap<String, String> kliknutKupac;
 	
 
 	LayoutParams tableLayoutParams;
@@ -243,6 +251,9 @@ public class BuyersActivity extends ActionBarActivity {
 	{
 		TableRow tableRow = new TableRow(this);
 		
+		String buyId = object.getProperty(buyerId).toString();
+		tableRow.setId(Integer.parseInt(buyId));
+		
 		TextView txtBuyersName = new TextView(this);
 		txtBuyersName.setBackgroundColor(Color.WHITE);
 		txtBuyersName.setGravity(Gravity.CENTER);
@@ -268,8 +279,76 @@ public class BuyersActivity extends ActionBarActivity {
 		txtBuyersCountry.setText(object.getProperty(buyersCountry).toString().split(";")[0]);
 		tableRow.addView(txtBuyersCountry,tableRowParams);
 		
+		//TextView txtBuyersID= new TextView(this);
+		//txtBuyersID.setBackgroundColor(Color.WHITE);
+		//txtBuyersID.setGravity(Gravity.CENTER);
+		//txtBuyersID.setText(object.getProperty(buyerId).toString().split(";")[0]);
+		//tableRow.addView(txtBuyersID,tableRowParams);
+		registerForContextMenu(tableRow);
 		table.addView(tableRow, tableLayoutParams);
 		
+		
+		
+	}
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {
+		// TODO Auto-generated method stub
+		super.onCreateContextMenu(menu, v, menuInfo);
+	if (v instanceof TableRow) {
+		TableRow selectedRow = (TableRow) v;
+		
+		TextView nameTW = (TextView) selectedRow.getChildAt(0);
+		TextView surnameTW = (TextView) selectedRow.getChildAt(1);
+		TextView addressTw = (TextView) selectedRow.getChildAt(2);
+		TextView countryTW = (TextView) selectedRow.getChildAt(3);
+		
+		int buyerID = selectedRow.getId();
+		String buyerName = nameTW.getText().toString();
+		String buyerSurname = surnameTW.getText().toString();
+		String buyerAddress = addressTw.getText().toString();
+		String buyerCountry = countryTW.getText().toString();
+		
+		kliknutKupac = new HashMap<String, String>();
+		
+		kliknutKupac.put(buyerId, String.valueOf(buyerID));
+		kliknutKupac.put(buyersName, buyerName);
+		kliknutKupac.put(buyersSurname, buyerSurname);
+		kliknutKupac.put(buyersAddress, buyerAddress);
+		kliknutKupac.put(buyersCountry, buyerCountry);
+		
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.popupmenubuyers, menu);
+		
+	}
+	
+	}
+
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == R.id.popup_menu_delete_itemBuyers) {
+			if(kliknutKupac != null) {
+				Log.i(TAG, "TREBA OBRISATI: " + kliknutKupac.get(buyerId));
+				
+			}	
+		}else if(item.getItemId() == R.id.popup_menu_update_itemBuyers) {
+			if(kliknutKupac != null) {
+				Log.i(TAG, "TREBA UPDATE [ " + kliknutKupac.get(buyerId) + ", " + kliknutKupac.get(buyersName) + ", " + kliknutKupac.get(buyersSurname) + ", " + kliknutKupac.get(buyersAddress) + ", " + kliknutKupac.get(buyersCountry) + "]");
+				update();
+			}
+		}
+		return super.onContextItemSelected(item);
+	}
+	
+	public void update(){
+		Intent intent = new Intent(this,UpdateBuyersActivity.class);
+		intent.putExtra(buyerId, kliknutKupac.get(buyerId));
+		intent.putExtra(buyersName, kliknutKupac.get(buyersName));
+		intent.putExtra(buyersSurname, kliknutKupac.get(buyersSurname));
+		intent.putExtra(buyersAddress, kliknutKupac.get(buyersAddress));
+		intent.putExtra(buyersCountry, kliknutKupac.get(buyersCountry));
+		startActivity(intent);
 		
 	}
 	public void searchBuyers(View view){

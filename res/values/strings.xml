@@ -19,5 +19,8 @@
     <string name="title_activity_add_buyers">AddBuyersActivity</string>
     <string name="title_activity_search_users">SearchUsers</string>
     <string name="title_activity_add_users">AddUsers</string>
+    <string name="title_activity_update_location">UpdateLocationActivity</string>
+    <string name="title_activity_update_buyers">UpdateBuyersActivity</string>
+    <string name="title_activity_update_users">UpdateUsersActivity</string>
 
 </resources>

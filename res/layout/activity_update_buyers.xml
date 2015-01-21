@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.UpdateBuyersActivity" >
+
+    <EditText 
+        android:id="@+id/etUpdateBuyerID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView 
+        android:id="@+id/tvUpdateBuyerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_below="@+id/etUpdateBuyerID"/>
+    <EditText 
+        android:id="@+id/etUpdateBuyerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateBuyerName"/>
+    <TextView 
+        android:id="@+id/tvUpdateBuyerSurname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Surname"
+        android:layout_below="@+id/etUpdateBuyerName"/>
+    <EditText 
+        android:id="@+id/etUpdateBuyerSurname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateBuyerSurname"/>
+    <TextView 
+        android:id="@+id/tvUpdateBuyerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:layout_below="@+id/etUpdateBuyerSurname"/>
+    <EditText 
+        android:id="@+id/etUpdateBuyerAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateBuyerAddress"/>
+    <TextView 
+        android:id="@+id/tvUpdateBuyerCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Country"
+        android:layout_below="@+id/etUpdateBuyerAddress"/>
+    <EditText 
+        android:id="@+id/etUpdateBuyerCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateBuyerCountry"/>
+    <Button 
+        android:id="@+id/buttonUpdateBuyersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="updateBuyers"
+        android:layout_below="@+id/etUpdateBuyerCountry"/>
+    
+    
+    
+    
+    
+
+</RelativeLayout>

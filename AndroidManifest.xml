@@ -84,6 +84,18 @@
             android:name=".AddUsers"
             android:label="@string/title_activity_add_users" >
         </activity>
+        <activity
+            android:name=".UpdateLocationActivity"
+            android:label="@string/title_activity_update_location" >
+        </activity>
+        <activity
+            android:name=".UpdateBuyersActivity"
+            android:label="@string/title_activity_update_buyers" >
+        </activity>
+        <activity
+            android:name=".UpdateUsersActivity"
+            android:label="@string/title_activity_update_users" >
+        </activity>
     </application>
 
 </manifest>

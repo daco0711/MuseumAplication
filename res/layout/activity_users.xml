@@ -24,13 +24,7 @@
             
              
             
-            <TextView
-                android:id="@+id/userIDNaslov"
-                android:layout_width="100px"
-                android:layout_height="wrap_content"
-                android:text="ID"
-                android:textColor="#FFF" 
-                android:layout_gravity="center"/>
+            
 
             <TextView
                 android:id="@+id/nameNaslov"

@@ -32,7 +32,7 @@ public class ExhibitsActivity extends ActionBarActivity {
 	public static final String historicPeriod = "HistoricPeriod";
 	public static final String locationid = "LocationIdFK";
 	public static  final String orderFormId = "OrderFormIdFK";
-	public static final String ip = "192.168.1.5";
+	public static final String ip = "192.168.1.3";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";

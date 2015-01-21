@@ -68,12 +68,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewAddCountry"/>
+    <TextView
+        android:id="@+id/textViewAddMuseumID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MuseumID" 
+        android:textColor="#FF0000"
+        android:layout_below="@+id/editTextAddCountry"/>
+    <EditText 
+        android:id="@+id/editTextAddMuseumID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddMuseumID"/>
     <Button 
         android:id="@+id/buttonAddLocationsOK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
         android:onClick="aDDLocations"
-        android:layout_below="@+id/editTextAddCountry"/>
+        android:layout_below="@+id/editTextAddMuseumID"/>
 
 </RelativeLayout>

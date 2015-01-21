@@ -2,6 +2,7 @@ package com.example.museumaplication;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream.PutField;
+import java.util.HashMap;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -15,10 +16,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,7 +34,7 @@ public class UsersActivity extends ActionBarActivity {
 	public static final String userName = "UserName";
 	public static final String password = "Password";
 	public static final String isAdministrator = "IsAdministrator";
-	public static final String ip = "192.168.1.5";
+	public static final String ip = "192.168.1.3";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";
@@ -51,6 +55,7 @@ public class UsersActivity extends ActionBarActivity {
 	public static String addIsAdministrator = "IsAdministartor";
 	public static String addUsers = "addUsers";
 	public static String addUsersAction = "MuseumService/AddUsers";
+	HashMap<String, String> kliknutUser;
 	
 	
 
@@ -245,12 +250,8 @@ public class UsersActivity extends ActionBarActivity {
 	public void makeRow(SoapObject object){
 		TableRow tableRow = new TableRow(this);
 		
-		TextView txtId = new TextView(this);
-		txtId.setBackgroundColor(Color.WHITE);
-		txtId.setGravity(Gravity.CENTER);
-		txtId.setLayoutParams(textViewLayoutParams);
-		txtId.setText(object.getProperty(userID).toString().split(";")[0]);
-		tableRow.addView(txtId,tableRowParams);
+		String userId = object.getProperty(userID).toString();
+		tableRow.setId(Integer.parseInt(userId));
 		
 		//Log.i(TAG, "EXIBIT: " + object.getProperty(type).toString().split(";")[0]);
 		
@@ -284,6 +285,7 @@ public class UsersActivity extends ActionBarActivity {
 		txtIsAdministrator.setText(object.getProperty(isAdministrator).toString().split(";")[0]);
 		tableRow.addView(txtIsAdministrator,tableRowParams);
 		
+		registerForContextMenu(tableRow);
 		table.addView(tableRow, tableLayoutParams);
 		
 	}
@@ -296,4 +298,60 @@ public class UsersActivity extends ActionBarActivity {
 		startActivity(intent);
 	}
 	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		if (v instanceof TableRow){
+			TableRow selectedRow = (TableRow) v;
+			
+			TextView nameTW = (TextView) selectedRow.getChildAt(0);
+			TextView userNameTW = (TextView) selectedRow.getChildAt(1);
+			TextView passwordTw = (TextView) selectedRow.getChildAt(2);
+			TextView isAdministratorTW = (TextView) selectedRow.getChildAt(3);
+			
+			int userid = selectedRow.getId();
+			String name = nameTW.getText().toString();
+			String userName = userNameTW.getText().toString();
+			String password = passwordTw.getText().toString();
+			String isAdministrator = isAdministratorTW.getText().toString();
+			
+			kliknutUser = new HashMap<String, String>();
+			
+			kliknutUser.put(userID, String.valueOf(userid));
+			kliknutUser.put(UsersActivity.name, name);
+			kliknutUser.put(UsersActivity.userName, userName);
+			kliknutUser.put(UsersActivity.password, password);
+			kliknutUser.put(UsersActivity.isAdministrator, isAdministrator);
+			
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.popupuser, menu);
+		}
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == R.id.popup_menu_delete_itemUsers) {
+			if(kliknutUser != null) {
+				Log.i(TAG, "TREBA OBRISATI: " + kliknutUser.get(userID));
+				
+			}	
+		}else if(item.getItemId() == R.id.popup_menu_update_itemUsers) {
+			if(kliknutUser != null) {
+				Log.i(TAG, "TREBA UPDATE [ " + kliknutUser.get(userID) + ", " + kliknutUser.get(name) + ", " + kliknutUser.get(userName) + ", " + kliknutUser.get(password) + ", " + kliknutUser.get(isAdministrator) + "]");
+				update();
+			}
+		}
+		return super.onContextItemSelected(item);
+	}
+	public void update(){
+		Intent intent = new Intent(this,UpdateUsersActivity.class);
+		
+		intent.putExtra(userID, kliknutUser.get(userID));
+		intent.putExtra(name, kliknutUser.get(name));
+		intent.putExtra(userName, kliknutUser.get(userName));
+		intent.putExtra(password, kliknutUser.get(password));
+		intent.putExtra(isAdministrator, kliknutUser.get(isAdministrator));
+		startActivity(intent);
+	}
 }
