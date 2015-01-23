@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.DeleteUsersActivity" >
+
+    <Button 
+        android:id="@+id/buttonDeleteUsersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteOK"
+        android:text="OK"/>
+    <Button 
+        android:id="@+id/buttonDeleteUsersNO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteNO"
+        android:text="NO"
+        android:layout_toRightOf="@+id/buttonDeleteUsersOK"/>
+    
+    <TextView 
+        android:id="@+id/tvDeleteUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure that you want to delete this User?"
+        android:layout_below="@+id/buttonDeleteUsersOK"/>
+    <EditText 
+        android:id="@+id/etDeleteUserID"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteUsers"/>
+    <TextView 
+        android:id="@+id/tvDeleteUsersName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_below="@+id/etDeleteUserID"/>
+    <EditText 
+        android:id="@+id/etDeleteUsersName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteUsersName"/>
+    <TextView 
+        android:id="@+id/tvDeleteUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:layout_below="@+id/etDeleteUsersName"/>
+    <EditText 
+        android:id="@+id/etDeleteUserName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteUserName"/>
+    <TextView 
+        android:id="@+id/tvDeletePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:layout_below="@+id/etDeleteUserName"/>
+    <EditText 
+        android:id="@+id/etDeleteUserPassword"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeletePassword"/>
+    <TextView 
+        android:id="@+id/tvDeleteIsAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IsAdministrator"
+        android:layout_below="@+id/etDeleteUserPassword"/>
+    <EditText 
+        android:id="@+id/etDeleteUserIsAdministrator"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteIsAdmin"/>
+    
+
+</RelativeLayout>

@@ -288,6 +288,7 @@ public class LocationsActivity extends ActionBarActivity {
 		if(item.getItemId() == R.id.popup_menu_delete_item) {
 			if(kliknutaLokacija != null) {
 				Log.i(TAg, "TREBA OBRISATI: " + kliknutaLokacija.get(locationId));
+				delete();
 				
 			}	
 		}else if(item.getItemId() == R.id.popup_menu_update_item) {
@@ -377,6 +378,16 @@ public class LocationsActivity extends ActionBarActivity {
 		intent.putExtra(leasePrice,kliknutaLokacija.get(leasePrice));
 		intent.putExtra(country,kliknutaLokacija.get(country));
 		
+		startActivity(intent);
+	}
+	public void delete(){
+		Intent intent = new Intent(this,DeleteLocationsActivity.class);
+		intent.putExtra(locationId, kliknutaLokacija.get(locationId));
+		intent.putExtra(locationName, kliknutaLokacija.get(locationName));
+		intent.putExtra(surface, kliknutaLokacija.get(surface));
+		intent.putExtra(state, kliknutaLokacija.get(state));
+		intent.putExtra(leasePrice, kliknutaLokacija.get(leasePrice));
+		intent.putExtra(country, kliknutaLokacija.get(country));
 		startActivity(intent);
 	}
 }

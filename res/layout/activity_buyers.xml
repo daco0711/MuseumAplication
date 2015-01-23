@@ -80,7 +80,7 @@
         android:onClick="searchBuyers"
         android:height="50px"
         android:textColor="#FF0000"
-        android:layout_marginLeft="200px"/>
+        android:layout_toRightOf="@+id/buttonAddBuyers"/>
          
          <Button 
         android:id="@+id/buttonAddBuyers"
@@ -90,6 +90,16 @@
         android:onClick="addBuyers"
         android:height="50px"
         android:textColor="#FF0000"/>
+         <Button 
+        android:id="@+id/buttonBuyersBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Main Menu"
+        android:onClick="back"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_toRightOf="@+id/buttonAddBuyers"
+        android:layout_marginLeft="200px"/>
          
          </RelativeLayout>
     

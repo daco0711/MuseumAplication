@@ -55,4 +55,8 @@ public class AddBuyersActivity extends ActionBarActivity {
 			startActivity(intent);
 		}
 	}
+	public void cancel(View view){
+		Intent intent = new Intent(this,BuyersActivity.class);
+		startActivity(intent);
+	}
 }

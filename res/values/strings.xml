@@ -22,5 +22,10 @@
     <string name="title_activity_update_location">UpdateLocationActivity</string>
     <string name="title_activity_update_buyers">UpdateBuyersActivity</string>
     <string name="title_activity_update_users">UpdateUsersActivity</string>
+    <string name="title_activity_update_exhibits">UpdateExhibitsActivity</string>
+    <string name="title_activity_delete_buyer">DeleteBuyerActivity</string>
+    <string name="title_activity_delete_users">DeleteUsersActivity</string>
+    <string name="title_activity_delete_locations">DeleteLocationsActivity</string>
+    <string name="title_activity_delete_exhibits">DeleteExhibitsActivity</string>
 
 </resources>

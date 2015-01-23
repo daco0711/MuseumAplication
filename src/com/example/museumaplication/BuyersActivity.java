@@ -330,6 +330,7 @@ public class BuyersActivity extends ActionBarActivity {
 		if(item.getItemId() == R.id.popup_menu_delete_itemBuyers) {
 			if(kliknutKupac != null) {
 				Log.i(TAG, "TREBA OBRISATI: " + kliknutKupac.get(buyerId));
+				delete();
 				
 			}	
 		}else if(item.getItemId() == R.id.popup_menu_update_itemBuyers) {
@@ -357,6 +358,19 @@ public class BuyersActivity extends ActionBarActivity {
 	}
 	public void addBuyers(View view){
 		Intent intent = new Intent(this,AddBuyersActivity.class);
+		startActivity(intent);
+	}
+	public void delete(){
+		Intent intent = new Intent(this,DeleteBuyerActivity.class);
+		intent.putExtra(buyerId, kliknutKupac.get(buyerId));
+		intent.putExtra(buyersName, kliknutKupac.get(buyersName));
+		intent.putExtra(buyersSurname, kliknutKupac.get(buyersSurname));
+		intent.putExtra(buyersAddress, kliknutKupac.get(buyersAddress));
+		intent.putExtra(buyersCountry, kliknutKupac.get(buyersCountry));
+		startActivity(intent);
+	}
+	public void back(View view){
+		Intent intent = new Intent(this,MainMenuActivity.class);
 		startActivity(intent);
 	}
 }

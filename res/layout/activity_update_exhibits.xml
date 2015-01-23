@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.UpdateExhibitsActivity" >
+
+    <EditText 
+        android:id="@+id/etUpdateExhibitsID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView 
+        android:id="@+id/tvUpdateExhivitType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        android:layout_below="@+id/etUpdateExhibitsID"/>
+    <EditText 
+        android:id="@+id/etUpdateExhibitsType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateExhivitType"/>
+    <TextView 
+        android:id="@+id/tvUpdateExhivitDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dimensions"
+        android:layout_below="@+id/etUpdateExhibitsType"/>
+    <EditText 
+        android:id="@+id/etUpdateExhibitsDimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateExhivitDimensions"/>
+    <TextView 
+        android:id="@+id/tvUpdateExhivitPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Historic Period"
+        android:layout_below="@+id/etUpdateExhibitsDimensions"/>
+     <EditText 
+        android:id="@+id/etUpdateExhibitsPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateExhivitPeriod"/>
+     <TextView 
+        android:id="@+id/tvUpdateExhivitLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Found On"
+        android:layout_below="@+id/etUpdateExhibitsPeriod"/>
+     <EditText 
+        android:id="@+id/etUpdateExhibitsLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateExhivitLocation"/>
+     <TextView 
+        android:id="@+id/tvUpdateExhivitOrderForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Form"
+        android:layout_below="@+id/etUpdateExhibitsLocation"/>
+     <EditText 
+        android:id="@+id/etUpdateExhibitsOrderForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateExhivitOrderForm"/>
+     <Button 
+         android:id="@+id/buttonUpdateExhibitsOK"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:text="OK"
+         android:onClick="updateExhibits"
+         android:layout_below="@+id/etUpdateExhibitsOrderForm"/>
+    
+    
+
+</RelativeLayout>

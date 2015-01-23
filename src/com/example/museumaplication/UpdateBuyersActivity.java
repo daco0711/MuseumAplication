@@ -160,7 +160,10 @@ public class UpdateBuyersActivity extends ActionBarActivity {
 
 	}
 		
+		public void cancel(View view){
+			Intent intent = new Intent(this,BuyersActivity.class);
+			startActivity(intent);
+		}
 		
-		
-	}
+}
 

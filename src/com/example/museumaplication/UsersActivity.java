@@ -334,6 +334,7 @@ public class UsersActivity extends ActionBarActivity {
 		if(item.getItemId() == R.id.popup_menu_delete_itemUsers) {
 			if(kliknutUser != null) {
 				Log.i(TAG, "TREBA OBRISATI: " + kliknutUser.get(userID));
+				delete();
 				
 			}	
 		}else if(item.getItemId() == R.id.popup_menu_update_itemUsers) {
@@ -347,6 +348,15 @@ public class UsersActivity extends ActionBarActivity {
 	public void update(){
 		Intent intent = new Intent(this,UpdateUsersActivity.class);
 		
+		intent.putExtra(userID, kliknutUser.get(userID));
+		intent.putExtra(name, kliknutUser.get(name));
+		intent.putExtra(userName, kliknutUser.get(userName));
+		intent.putExtra(password, kliknutUser.get(password));
+		intent.putExtra(isAdministrator, kliknutUser.get(isAdministrator));
+		startActivity(intent);
+	}
+	public void delete(){
+		Intent intent = new Intent(this,DeleteUsersActivity.class);
 		intent.putExtra(userID, kliknutUser.get(userID));
 		intent.putExtra(name, kliknutUser.get(name));
 		intent.putExtra(userName, kliknutUser.get(userName));

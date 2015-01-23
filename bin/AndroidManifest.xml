@@ -96,6 +96,26 @@
             android:name=".UpdateUsersActivity"
             android:label="@string/title_activity_update_users" >
         </activity>
+        <activity
+            android:name=".UpdateExhibitsActivity"
+            android:label="@string/title_activity_update_exhibits" >
+        </activity>
+        <activity
+            android:name=".DeleteBuyerActivity"
+            android:label="@string/title_activity_delete_buyer" >
+        </activity>
+        <activity
+            android:name=".DeleteUsersActivity"
+            android:label="@string/title_activity_delete_users" >
+        </activity>
+        <activity
+            android:name=".DeleteLocationsActivity"
+            android:label="@string/title_activity_delete_locations" >
+        </activity>
+        <activity
+            android:name=".DeleteExhibitsActivity"
+            android:label="@string/title_activity_delete_exhibits" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.DeleteExhibitsActivity" >
+
+    <Button 
+        android:id="@+id/buttonDeleteExhibitsOK"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="OK"
+        android:onClick="deleteOK"/>
+    <Button 
+        android:id="@+id/buttonDeleteNO"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="NO"
+        android:onClick="deleteNO"
+        android:layout_toRightOf="@+id/buttonDeleteExhibitsOK"/>
+    
+    <TextView
+        android:id="@+id/tvDeleteExhibits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure that you want to delete this Exhibit?" 
+        android:layout_below="@+id/buttonDeleteExhibitsOK"/>
+    <EditText 
+        android:id="@+id/etDeleteExhID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteExhibits"/>
+    <TextView
+        android:id="@+id/tvDeleteExhibitType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type" 
+        android:layout_below="@+id/etDeleteExhID"/>
+    <EditText 
+        android:id="@+id/etDeleteExhType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteExhibitType"/>
+    <TextView
+        android:id="@+id/tvDeleteExhibitDimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dimensions" 
+        android:layout_below="@+id/etDeleteExhType"/>
+    <EditText 
+        android:id="@+id/etDeleteExhDimen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteExhibitDimen"/>
+    <TextView
+        android:id="@+id/tvDeleteExhibitPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Historic Period" 
+        android:layout_below="@+id/etDeleteExhDimen"/>
+    <EditText 
+        android:id="@+id/etDeleteExhPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteExhibitPeriod"/>
+    <TextView
+        android:id="@+id/tvDeleteExhibitLocationID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Found On" 
+        android:layout_below="@+id/etDeleteExhPeriod"/>
+    <EditText 
+        android:id="@+id/etDeleteExhLocationID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteExhibitLocationID"/>
+    <TextView
+        android:id="@+id/tvDeleteExhibitOrderFormID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Form" 
+        android:layout_below="@+id/etDeleteExhLocationID"/>
+    <EditText 
+        android:id="@+id/etDeleteExhOrderFormID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteExhibitOrderFormID"/>
+    
+    
+    
+    
+    
+
+</RelativeLayout>

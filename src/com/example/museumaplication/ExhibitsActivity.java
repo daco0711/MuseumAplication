@@ -1,6 +1,7 @@
 package com.example.museumaplication;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -16,10 +17,13 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.CheckBox;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,6 +31,7 @@ import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 
 public class ExhibitsActivity extends ActionBarActivity {
+	public static final String exhibitID = "ExhibitId";
 	public static final String type = "Type";
 	public static final String dimensions = "Dimensions";
 	public static final String historicPeriod = "HistoricPeriod";
@@ -55,6 +60,8 @@ public class ExhibitsActivity extends ActionBarActivity {
 	public static String addExhibitsAction = "MuseumService/AddExhibits";
 	public Integer locationID = null;
 	public Integer orderFormID = null;
+	
+	HashMap<String, String> kliknutExhibit;
 	
 
 	LayoutParams tableLayoutParams;
@@ -85,7 +92,7 @@ public class ExhibitsActivity extends ActionBarActivity {
 			String orderFormIDFK = getIntent().getExtras().getString(addOrderFormIDFK);
 			addExhibits(type,dimensions,period,locationIDFK,orderFormIDFK);
 		}
-		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchType)&& getIntent().getExtras().containsKey(searchHistoricPeriod)) {
+		else if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchType)&& getIntent().getExtras().containsKey(searchHistoricPeriod)) {
 			String type = getIntent().getExtras().getString(searchType);
 			String historicPeriod = getIntent().getExtras().getString(searchHistoricPeriod);
 			searchList(type, historicPeriod);
@@ -290,6 +297,11 @@ public class ExhibitsActivity extends ActionBarActivity {
 	private void makeRow(SoapObject object){
 		TableRow tableRow = new TableRow(this);
 		
+		String exhibitId = object.getProperty(exhibitID).toString();
+		tableRow.setId(Integer.parseInt(exhibitId));
+		
+		
+		
 		TextView txtType = new TextView(this);
 		txtType.setBackgroundColor(Color.WHITE);
 		txtType.setGravity(Gravity.CENTER);
@@ -328,6 +340,11 @@ public class ExhibitsActivity extends ActionBarActivity {
 		txtOrderFormID.setText(object.getProperty(orderFormId).toString().split(";")[0]);
 		tableRow.addView(txtOrderFormID,tableRowParams);
 		
+		//String ordId = object.getProperty(orderFormId).toString();
+		//tableRow.setId(Integer.parseInt(ordId));
+		
+		
+		registerForContextMenu(tableRow);
 		table.addView(tableRow, tableLayoutParams);
 		
 	}
@@ -372,6 +389,67 @@ public class ExhibitsActivity extends ActionBarActivity {
 		}
 	}
 	
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		if (v instanceof TableRow){
+			TableRow selectedRow = (TableRow) v;
+			
+			TextView typeTW = (TextView) selectedRow.getChildAt(0);
+			TextView dimensionsTW = (TextView) selectedRow.getChildAt(1);
+			TextView historicPeriodTw = (TextView) selectedRow.getChildAt(2);
+			TextView locationIDTW = (TextView) selectedRow.getChildAt(3);
+			TextView orderFormID = (TextView) selectedRow.getChildAt(4);
+			
+			int exhid = selectedRow.getId();
+			String type = typeTW.getText().toString();
+			String dimensions = dimensionsTW.getText().toString();
+			String period = historicPeriodTw.getText().toString();
+			String locationId = locationIDTW.getText().toString();
+			String orderForm = orderFormID.getText().toString();
+			
+			kliknutExhibit = new HashMap<String, String>();
+			
+			kliknutExhibit.put(exhibitID, String.valueOf(exhid));
+			kliknutExhibit.put(ExhibitsActivity.type, type);
+			kliknutExhibit.put(ExhibitsActivity.dimensions, dimensions);
+			kliknutExhibit.put(historicPeriod, period);
+			kliknutExhibit.put(locationid, String.valueOf(locationId));
+			kliknutExhibit.put(orderFormId, String.valueOf(orderForm));
+			
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.popoutexhibits, menu);
+		}
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId() == R.id.popup_menu_delete_itemExhibits) {
+			if(kliknutExhibit != null) {
+				Log.i(TAG, "TREBA OBRISATI: " + kliknutExhibit.get(exhibitID));
+				delete();
+				
+			}	
+		}else if(item.getItemId() == R.id.popup_menu_update_itemExhibits) {
+			if(kliknutExhibit != null) {
+				Log.i(TAG, "TREBA UPDATE [ " + kliknutExhibit.get(exhibitID) + ", " + kliknutExhibit.get(type) + ", " + kliknutExhibit.get(dimensions) + ", " + kliknutExhibit.get(historicPeriod) + ", " + kliknutExhibit.get(locationid) + ","+ kliknutExhibit.get(orderFormId)+ "]");
+				update();
+			}
+		}
+		return super.onContextItemSelected(item);
+	}
+	
+	public void update(){
+		Intent intent = new Intent (this,UpdateExhibitsActivity.class);
+		intent.putExtra(exhibitID, kliknutExhibit.get(exhibitID));
+		intent.putExtra(type, kliknutExhibit.get(type));
+		intent.putExtra(dimensions, kliknutExhibit.get(dimensions));
+		intent.putExtra(historicPeriod, kliknutExhibit.get(historicPeriod));
+		intent.putExtra(locationid, kliknutExhibit.get(locationid));
+		intent.putExtra(orderFormId, kliknutExhibit.get(orderFormId));
+		startActivity(intent);
+	}
+	
 	public void searchExhibits(View view){
 		Intent intent = new Intent(this,SearchExhibitsActivity.class);
 		startActivity(intent);
@@ -388,5 +466,15 @@ public class ExhibitsActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		mp.release();
+	}
+	public void delete(){
+		Intent intent = new Intent(this,DeleteExhibitsActivity.class);
+		intent.putExtra(exhibitID, kliknutExhibit.get(exhibitID));
+		intent.putExtra(type, kliknutExhibit.get(type));
+		intent.putExtra(dimensions, kliknutExhibit.get(dimensions));
+		intent.putExtra(historicPeriod, kliknutExhibit.get(historicPeriod));
+		intent.putExtra(locationid, kliknutExhibit.get(locationid));
+		intent.putExtra(orderFormId, kliknutExhibit.get(orderFormId));
+		startActivity(intent);
 	}
 }

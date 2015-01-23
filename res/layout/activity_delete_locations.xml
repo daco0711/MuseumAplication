@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.DeleteLocationsActivity" >
+
+    <Button 
+        android:id="@+id/deleteUsersOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="deleteOK"/>
+    <Button 
+        android:id="@+id/deleteUsersNO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NO"
+        android:onClick="deleteNO"
+        android:layout_toRightOf="@+id/deleteUsersOK"/>
+    
+    <TextView 
+        android:id="@+id/tvDeleteUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are you sure that you want to delete this User?"
+        android:layout_below="@+id/deleteUsersOK"/>
+    
+    <EditText 
+        android:id="@+id/etDeleteLocationID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDeleteUsers"/>
+    
+    <TextView
+        android:id="@+id/tvDeleteLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_below="@+id/etDeleteLocationID" />
+    
+    
+    <EditText 
+        android:id="@+id/etDeleteLocationName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteLocationName"/>
+    <TextView
+        android:id="@+id/tvDeleteSurface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Surface"
+        android:layout_below="@+id/etDeleteLocationName" />
+    <EditText 
+        android:id="@+id/etDeleteSurface"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteSurface"/>
+    <TextView
+        android:id="@+id/tvDeleteState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="State"
+        android:layout_below="@+id/etDeleteSurface" />
+    <EditText 
+        android:id="@+id/etDeleteState"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteState"/>
+    <TextView
+        android:id="@+id/tvDeleteLease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lease Price"
+        android:layout_below="@+id/etDeleteState" />
+    <EditText 
+        android:id="@+id/etDeleteLease"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteLease"/>
+    <TextView
+        android:id="@+id/tvDeleteCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Country"
+        android:layout_below="@+id/etDeleteLease" />
+    <EditText 
+        android:id="@+id/etDeleteCountry"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/tvDeleteCountry"/>
+    
+    
+    
+    
+
+</RelativeLayout>
