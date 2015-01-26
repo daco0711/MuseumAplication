@@ -35,6 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="findExhibits"
-        android:layout_below="@+id/EtsearchExhibitsHistoricPeriod"/>
+        android:layout_below="@+id/EtsearchExhibitsHistoricPeriod"
+        android:text="OK"/>
+    <Button 
+        android:id="@+id/buttonSearchExhibitsCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="backToExhibits"
+        android:layout_below="@+id/buttonSearchExhibitsOK"
+        android:text="Cancel"/>
 
 </RelativeLayout>

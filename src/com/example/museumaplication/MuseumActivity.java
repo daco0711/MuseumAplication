@@ -11,24 +11,33 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.example.museumadapters.MuseumListAdapter;
+
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.GridView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.TableLayout.LayoutParams;
 
 public class MuseumActivity extends ActionBarActivity {
 	MediaPlayer mp;
-	public static final String ip = "192.168.1.3";
+	public static final String ip = "192.168.1.16";
 	public static final int port = 80;
-
+	public static final String MuseumID = "MuseumId";
 	public static final String Museum_name = "MuseumName";
 	public static final String Museum_address = "MuseumAddress";
 	public static final String Established = "Established";
@@ -38,10 +47,15 @@ public class MuseumActivity extends ActionBarActivity {
 	public static String URL = "http://" + ip + ":" + port
 			+ "/WcfServiceMuseumNew/Service1.svc";
 	public static String TAG = "MuseumActivity";
-	GridView museumList;
-	ArrayList<HashMap<String, String>> museum_list = new ArrayList<HashMap<String, String>>();
-	private HashMap<String, String> map;
-	private MuseumListAdapter adapter;
+	LayoutParams tableLayoutParams;
+	TableRow.LayoutParams tableRowParams;
+	TableRow.LayoutParams textViewLayoutParams;
+	TableLayout table;
+	
+	HashMap<String, String> kliknutMuzej;
+	
+	
+	
 	public static String SEARCH_RESULT = "SEARCH_RESULT";
 	
 	@Override
@@ -50,21 +64,20 @@ public class MuseumActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_museum);
 		mp = MediaPlayer.create(MuseumActivity.this,R.raw.welcome);
 		mp.start();
+		tableLayoutParams = new LayoutParams();
+		tableRowParams = new TableRow.LayoutParams();
+		textViewLayoutParams = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 		
-		museumList = (GridView) findViewById(R.id.gridView1);
-		if (getIntent().getExtras() != null
-				&& getIntent().getExtras().containsKey(SEARCH_RESULT)) {
-			museum_list = (ArrayList<HashMap<String, String>>) getIntent()
-					.getExtras().get(SEARCH_RESULT);
-
-		} else {
-			museumList();
-		}
-		adapter = new MuseumListAdapter(this, museum_list);
-		museumList.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
-		registerForContextMenu(museumList);
+		table = (TableLayout) findViewById(R.id.tableMuseum);
+		table.setBackgroundColor(Color.BLACK);
+		
+		tableRowParams.setMargins(1, 1, 1, 1);
+		tableLayoutParams.weight = 1;
+		
+		museumList();
 	}
+		
+		
 	
 
 	@Override
@@ -86,7 +99,7 @@ public class MuseumActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public void museumList() {
+	public void museumList(){
 		Thread t = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -104,16 +117,9 @@ public class MuseumActivity extends ActionBarActivity {
 					Log.i(TAG, "after call");
 					SoapObject response = (SoapObject) envelope.getResponse();
 					if (response != null && response.getPropertyCount() > 0) {
-						// Log.i(Tag,"broj studenata u bazi:"+
-						// response.getPropertyCount());
-
 						for (int i = 0; i < response.getPropertyCount(); i++) {
-							Log.i(TAG, "napuni listu");
-							 //Log.i(TAG, "property" +
-							 //response.getProperty(i).toString());
-							SoapObject returned = ((SoapObject) response
-									.getProperty(i));
-							fillHashMap(museum_list, returned);
+							SoapObject returned = ((SoapObject) response.getProperty(i));
+							makeRow(returned);
 						}
 					}
 				} catch (IOException e) {
@@ -131,21 +137,93 @@ public class MuseumActivity extends ActionBarActivity {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+}
+	
+	private void makeRow(SoapObject object) {
+		TableRow tableRow = new TableRow(this);
+		
+		
+		String museumId = object.getProperty(MuseumID).toString();
+		tableRow.setId(Integer.parseInt(museumId));
+		
+		
+		TextView nameTextView = new TextView(this);
+		nameTextView.setBackgroundColor(Color.WHITE);
+		nameTextView.setGravity(Gravity.CENTER);
+		nameTextView.setLayoutParams(textViewLayoutParams);
+		nameTextView.setText(object.getProperty(Museum_name).toString().split(";")[0]);
+		tableRow.addView(nameTextView, tableRowParams);
 
+		TextView addressTextView = new TextView(this);
+		addressTextView.setBackgroundColor(Color.WHITE);
+		addressTextView.setGravity(Gravity.CENTER);
+		addressTextView.setText(object.getProperty(Museum_address).toString().split(";")[0]);
+		tableRow.addView(addressTextView, tableRowParams);
+		
+		TextView establishedTextView = new TextView(this);
+		establishedTextView.setBackgroundColor(Color.WHITE);
+		establishedTextView.setGravity(Gravity.CENTER);
+		establishedTextView.setText(object.getProperty(Established).toString().split(";")[0]);
+		tableRow.addView(establishedTextView, tableRowParams);
+		
+		
+		registerForContextMenu(tableRow);
+		
+		
+		table.addView(tableRow, tableLayoutParams);
 	}
 
-	public static void fillHashMap(
-			ArrayList<HashMap<String, String>> museumList, SoapObject returned) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put(Museum_name, returned.getProperty(Museum_name).toString()
-				.split(";")[0]);
-		map.put(Museum_address, returned.getProperty(Museum_address).toString()
-				.split(";")[0]);
-		map.put(Established, returned.getProperty(Established).toString()
-				.split(";")[0]);
-
-		museumList.add(map);
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		if(v instanceof TableRow) {
+			TableRow selectedRow = (TableRow) v;
+			
+			TextView nameTW = (TextView) selectedRow.getChildAt(0);
+			TextView addressTW = (TextView) selectedRow.getChildAt(1);
+			TextView establishedTw = (TextView) selectedRow.getChildAt(2);
+			
+			
+			int museumID = selectedRow.getId();
+			String museumName = nameTW.getText().toString();
+			String museumAddress = addressTW.getText().toString();
+			String established =  establishedTw.getText().toString();
+			
+			
+			
+			kliknutMuzej = new HashMap<String, String>();
+			kliknutMuzej.put(MuseumID, String.valueOf(museumID));
+			kliknutMuzej.put(Museum_name, museumName);
+			kliknutMuzej.put(Museum_address, museumAddress);
+			kliknutMuzej.put(Established, established);
+			
+			
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.popupmuseum, menu);
+		}
 	}
+	
+	public boolean onContextItemSelected(MenuItem item) {
+		 if(item.getItemId() == R.id.popup_menu_update_itemMuseum) {
+			if(kliknutMuzej != null) {
+				Log.i(TAG, "TREBA UPDATE [ " + kliknutMuzej.get(MuseumID) + ", " + kliknutMuzej.get(Museum_name) + ", " + kliknutMuzej.get(Museum_address) + ", " + kliknutMuzej.get(Established)  + "]");
+				update();
+			}
+		}
+		return super.onContextItemSelected(item);
+	}
+	
+	public void update(){
+		Intent intent = new Intent(this,UpdateMuseumActivity.class);
+		intent.putExtra(MuseumID, kliknutMuzej.get(MuseumID));
+		intent.putExtra(Museum_name, kliknutMuzej.get(Museum_name));
+		intent.putExtra(Museum_address, kliknutMuzej.get(Museum_address));
+		intent.putExtra(Established, kliknutMuzej.get(Established));
+		startActivity(intent);
+		
+	}
+
+	
 	public void exitMuseumActivity(View view)
 	{
 		Intent intent = new Intent(this, MainMenuActivity.class);

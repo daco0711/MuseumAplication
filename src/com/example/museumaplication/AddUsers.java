@@ -57,4 +57,8 @@ public class AddUsers extends ActionBarActivity {
 			startActivity(intent);
 		}
 	}
+	public void backToMain(View view){
+		Intent intent = new Intent(this,UsersActivity.class);
+		startActivity(intent);
+	}
 }

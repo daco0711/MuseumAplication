@@ -70,7 +70,13 @@
         android:text="OK"
         android:onClick="addExhibits"
         android:layout_below="@+id/etAddExhibitsOrderFormsIDFK"/>
-    
+    <Button 
+        android:id="@+id/buttonAddExhibitsCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:onClick="backToExhibits"
+        android:layout_below="@+id/buttonAddExhibitsOK"/>
     
 	    
     

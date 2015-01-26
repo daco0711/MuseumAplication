@@ -53,4 +53,8 @@ public class SearchExhibitsActivity extends ActionBarActivity {
 		}
 		
 	}
+	public void backToExhibits(View view){
+		Intent intent = new Intent(this,ExhibitsActivity.class);
+		startActivity(intent);
+	}
 }

@@ -27,5 +27,6 @@
     <string name="title_activity_delete_users">DeleteUsersActivity</string>
     <string name="title_activity_delete_locations">DeleteLocationsActivity</string>
     <string name="title_activity_delete_exhibits">DeleteExhibitsActivity</string>
+    <string name="title_activity_update_museum">UpdateMuseumActivity</string>
 
 </resources>

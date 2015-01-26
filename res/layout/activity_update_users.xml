@@ -64,7 +64,13 @@
         android:onClick="updateUsers"
         android:text="OK"
         android:layout_below="@+id/etUpdateIsAdministrator"/>
-    
+    <Button 
+        android:id="@+id/buttonUpdateUsersCancel"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:onClick="backToUsers"
+        android:text="Cancel"
+        android:layout_below="@+id/buttonUpdateUsersOK"/>
     
 
 </RelativeLayout>

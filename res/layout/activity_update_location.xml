@@ -45,7 +45,13 @@
         android:onClick="updateLocation"
         android:text="OK"
         android:layout_below="@+id/updateCountry"/>
-    
+    <Button 
+        android:id="@+id/updateLocationCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="backToLocations"
+        android:text="Cancel"
+        android:layout_below="@+id/updateLocationOK"/>
     
     
 

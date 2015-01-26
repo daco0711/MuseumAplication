@@ -74,6 +74,13 @@
          android:text="OK"
          android:onClick="updateExhibits"
          android:layout_below="@+id/etUpdateExhibitsOrderForm"/>
+     <Button 
+         android:id="@+id/buttonUpdateExhibitsCancel"
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:text="Cancel"
+         android:onClick="backToExhibits"
+         android:layout_below="@+id/buttonUpdateExhibitsOK"/>
     
     
 

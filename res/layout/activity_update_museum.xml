@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.museumaplication.UpdateMuseumActivity" >
+	
+    <EditText 
+        android:id="@+id/etUpdatemuseumID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    <TextView
+        android:id="@+id/tvUpdateMuseumName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name" 
+        android:layout_below="@+id/etUpdatemuseumID"/>
+    <EditText 
+        android:id="@+id/etUpdatemuseumName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateMuseumName"/>
+    <TextView
+        android:id="@+id/tvUpdateMuseumAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address" 
+        android:layout_below="@+id/etUpdatemuseumName"/>
+    <EditText 
+        android:id="@+id/etUpdatemuseumAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateMuseumAddress"/>
+    <TextView
+        android:id="@+id/tvUpdateMuseumEstablished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Established" 
+        android:layout_below="@+id/etUpdatemuseumAddress"/>
+    <EditText 
+        android:id="@+id/etUpdatemuseumEstablished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUpdateMuseumEstablished"/>
+    <Button 
+        android:id="@+id/buttonUpdateMuseumOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="updateOK"
+        android:layout_below="@+id/etUpdatemuseumEstablished"/>
+    <Button 
+        android:id="@+id/buttonUpdateMuseumNO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:onClick="updateNO"
+        android:layout_below="@+id/buttonUpdateMuseumOK"/>
+    
+    
+    
+
+</RelativeLayout>

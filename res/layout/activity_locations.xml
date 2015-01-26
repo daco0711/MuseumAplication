@@ -92,6 +92,15 @@
         android:height="50px"
         android:textColor="#FF0000"
         android:layout_toRightOf="@+id/buttonSearchLocations"/>
+         <Button
+         android:id="@+id/buttonBackToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Main Menu"
+        android:onClick="backToMain"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_toRightOf="@+id/buttonAddLocations"/>
          
         
          </RelativeLayout>

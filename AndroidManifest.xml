@@ -116,6 +116,10 @@
             android:name=".DeleteExhibitsActivity"
             android:label="@string/title_activity_delete_exhibits" >
         </activity>
+        <activity
+            android:name=".UpdateMuseumActivity"
+            android:label="@string/title_activity_update_museum" >
+        </activity>
     </application>
 
 </manifest>

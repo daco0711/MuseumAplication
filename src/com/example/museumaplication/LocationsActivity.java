@@ -30,7 +30,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class LocationsActivity extends ActionBarActivity {
-	public static final String ip = "192.168.1.3";
+	public static final String ip = "192.168.1.16";
 	public static final int port = 80;
 	public static final String locationName = "LocationName";
 	public static final String surface = "Surface";
@@ -388,6 +388,10 @@ public class LocationsActivity extends ActionBarActivity {
 		intent.putExtra(state, kliknutaLokacija.get(state));
 		intent.putExtra(leasePrice, kliknutaLokacija.get(leasePrice));
 		intent.putExtra(country, kliknutaLokacija.get(country));
+		startActivity(intent);
+	}
+	public void backToMain(View view){
+		Intent intent = new Intent(this,MainMenuActivity.class);
 		startActivity(intent);
 	}
 }

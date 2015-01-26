@@ -87,5 +87,11 @@
         android:text="OK"
         android:onClick="aDDLocations"
         android:layout_below="@+id/editTextAddMuseumID"/>
-
+	<Button 
+        android:id="@+id/buttonAddLocationsCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:onClick="backToLocations"
+        android:layout_below="@+id/buttonAddLocationsOK"/>
 </RelativeLayout>

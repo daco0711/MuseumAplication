@@ -35,7 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="findUsers"
-        android:layout_below="@+id/ETsearchUserName"/>
-    
+        android:layout_below="@+id/ETsearchUserName"
+        android:text="OK"/>
+    <Button 
+        android:id="@+id/buttonSearchUsersCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="backToUsers"
+        android:layout_below="@+id/buttonSearchUsersOK"
+        android:text="Cancel"/>
 
 </RelativeLayout>

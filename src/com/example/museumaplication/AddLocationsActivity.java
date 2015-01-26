@@ -154,4 +154,8 @@ public class AddLocationsActivity extends ActionBarActivity {
 		 
 		 
 	}
+	public void backToLocations(View view){
+		Intent intent = new Intent(this,LocationsActivity.class);
+		startActivity(intent);
+	}
 }

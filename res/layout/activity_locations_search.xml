@@ -37,6 +37,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         </Button>
-    
+    <Button
+        android:id="@+id/idbuttonsearchBackToLOcations"
+        android:layout_below="@+id/idbuttonsearchFoundLocations"
+        android:text="Cancel"
+        android:onClick="backToLocations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        </Button>
 
 </RelativeLayout>

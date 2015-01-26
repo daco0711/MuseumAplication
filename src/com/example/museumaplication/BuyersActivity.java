@@ -34,7 +34,7 @@ public class BuyersActivity extends ActionBarActivity {
 	public static final String buyersAddress = "BuyersAddress";
 	public static final String buyersCountry = "BuyersCountry";
 	public static final String buyerId = "BuyersId";
-	public static final String ip = "192.168.1.3";
+	public static final String ip = "192.168.1.16";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";

@@ -8,19 +8,69 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.museumaplication.MuseumActivity" >
 
-    <GridView
-        android:id="@+id/gridView1"
-        android:layout_width="1000000px"
+    <TableLayout
+        android:id="@+id/tableMuseum"
+        android:layout_width="650px"
         android:layout_height="wrap_content"
-        android:numColumns="3" >
-    </GridView>
-    
-    <Button
-            android:id="@+id/btnButtonExitMuseum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="exitMuseumActivity"
-            android:text="Back" 
-            android:layout_below="@+id/gridView1"/>
+        android:layout_marginTop="100px"
+        android:layout_weight="0"
+        android:padding="5dp" >
+        
+       
+        
+        
+		
+        <TableRow android:layout_height="wrap_content" >
+            
+             
+            
+            <TextView
+                android:id="@+id/museumName"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="#FFF" 
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:id="@+id/museumAddress"
+                android:layout_width="120px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/buyersNameNaslov"
+                android:text="Address"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/museumEstablished"
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/buyersSurnameNaslov"
+                android:text="Established"
+                android:textColor="#FFF"
+                android:layout_gravity="center" />
+             </TableRow>
+        
+    </TableLayout>
+
+            <RelativeLayout 
+        android:id="@+id/footerMuseumButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        
+         <Button 
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:onClick="exitMuseumActivity"
+        android:height="50px"
+        android:textColor="#FF0000"/>
+</RelativeLayout>
+            
+            
+            
+       
 
 </RelativeLayout>

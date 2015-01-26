@@ -70,6 +70,8 @@ public class UpdateUsersActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
 	public void updateUsers(View view){
 		EditText txtID = (EditText) findViewById(R.id.etUpdateUserID);
 		final String iD = txtID.getText().toString();
@@ -151,6 +153,11 @@ public class UpdateUsersActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void backToUsers(View view){
+		Intent intent = new Intent(this,UsersActivity.class);
+		startActivity(intent);
 	}
 
 }
