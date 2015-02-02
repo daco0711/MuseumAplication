@@ -2,14 +2,18 @@ package com.example.museumaplication;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 public class MainMenuActivity extends ActionBarActivity {
 	MediaPlayer mp;
+	Boolean isAdmin;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -17,7 +21,12 @@ public class MainMenuActivity extends ActionBarActivity {
 		mp = MediaPlayer.create(MainMenuActivity.this, R.raw.maintheme);
 		mp.start();
 		
-		
+		Boolean admin = getApplicationContext().getSharedPreferences("preferences", 0).getBoolean("user_admin", false);
+		if(admin !=null & admin ==false){
+			View usersButton = findViewById(R.id.buttonEnterUsers);
+			usersButton.setVisibility(View.INVISIBLE);
+		}
+		isAdmin = admin;
 	}
 
 	@Override
@@ -76,5 +85,16 @@ public class MainMenuActivity extends ActionBarActivity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		mp.release();
+	}
+	public void logOut(View view){
+		Intent intent = new Intent(this,LogInActivity.class);
+		SharedPreferences pref = getApplicationContext().getSharedPreferences("preferences", 0); // 0 - for private mode
+		Editor editor = pref.edit();
+		editor.putString("user_id", null);
+		editor.putString("user_name", null);
+		editor.putString("user_username", null);
+		editor.putBoolean("user_admin", false);
+		editor.commit();
+		startActivity(intent);
 	}
 }

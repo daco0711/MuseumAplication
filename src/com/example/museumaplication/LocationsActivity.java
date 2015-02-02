@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
@@ -30,7 +31,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 public class LocationsActivity extends ActionBarActivity {
-	public static final String ip = "192.168.1.16";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static final String locationName = "LocationName";
 	public static final String surface = "Surface";
@@ -60,6 +61,7 @@ public class LocationsActivity extends ActionBarActivity {
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
 	MediaPlayer mp;
+	Boolean isAdmin;
 
 	HashMap<String, String> kliknutaLokacija;
 	
@@ -78,6 +80,13 @@ public class LocationsActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
+		
+		Boolean admin = getApplicationContext().getSharedPreferences("preferences", 0).getBoolean("user_admin", false);
+		if(admin != null & admin == false) {
+			View addButton = findViewById(R.id.buttonAddLocations);
+			addButton.setVisibility(View.INVISIBLE);
+		}
+		isAdmin = admin;
 		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(searchTerm)) {
 			String searchName = getIntent().getExtras().getString(searchTerm);
 			searchLocations(searchName);
@@ -350,7 +359,9 @@ public class LocationsActivity extends ActionBarActivity {
 		countryTextView.setText(object.getProperty(country).toString().split(";")[0]);
 		tableRow.addView(countryTextView, tableRowParams);
 		
-		registerForContextMenu(tableRow);
+		if(isAdmin) {
+			registerForContextMenu(tableRow);
+		}
 		
 		table.addView(tableRow, tableLayoutParams);
 	}

@@ -37,7 +37,7 @@ public class ExhibitsActivity extends ActionBarActivity {
 	public static final String historicPeriod = "HistoricPeriod";
 	public static final String locationid = "LocationIdFK";
 	public static  final String orderFormId = "OrderFormIdFK";
-	public static final String ip = "192.168.1.16";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static String  URL = "http://" + ip + ":" + port + "/WcfServiceMuseumNew/Service1.svc";
 	public static String namespace = "WcfServiceMuseumNew";
@@ -67,7 +67,7 @@ public class ExhibitsActivity extends ActionBarActivity {
 	LayoutParams tableLayoutParams;
 	TableRow.LayoutParams tableRowParams;
 	TableRow.LayoutParams textViewLayoutParams;
-	
+	Boolean isAdmin;
 	MediaPlayer mp;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +84,13 @@ public class ExhibitsActivity extends ActionBarActivity {
 		
 		tableRowParams.setMargins(1, 1, 1, 1);
 		tableLayoutParams.weight = 1;
+		
+		Boolean admin = getApplicationContext().getSharedPreferences("preferences", 0).getBoolean("user_admin", false);
+		if (admin !=null & admin == false){
+			View addButton = findViewById(R.id.buttonAddExhibits);
+			addButton.setVisibility(View.INVISIBLE);
+		}
+		isAdmin = admin;
 		if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(addType) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addDimensions) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addPeriod) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addLocationID) && getIntent().getExtras() != null && getIntent().getExtras().containsKey(addOrderFormIDFK)){
 			String type = getIntent().getExtras().getString(addType);
 			String dimensions = getIntent().getExtras().getString(addDimensions);
@@ -343,8 +350,9 @@ public class ExhibitsActivity extends ActionBarActivity {
 		//String ordId = object.getProperty(orderFormId).toString();
 		//tableRow.setId(Integer.parseInt(ordId));
 		
-		
+		if (isAdmin){
 		registerForContextMenu(tableRow);
+		}
 		table.addView(tableRow, tableLayoutParams);
 		
 	}

@@ -82,4 +82,14 @@
         android:height="50px"
         android:textColor="#FF0000"
         android:layout_toRightOf="@+id/buttonUtisaj"/>
+
+<Button 
+        android:id="@+id/buttonLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Off" 
+        android:onClick="logOut"
+        android:height="50px"
+        android:textColor="#FF0000"
+        android:layout_toRightOf="@+id/buttonPojacaj"/>
 </RelativeLayout>

@@ -35,7 +35,7 @@ import android.widget.TableLayout.LayoutParams;
 
 public class MuseumActivity extends ActionBarActivity {
 	MediaPlayer mp;
-	public static final String ip = "192.168.1.16";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static final String MuseumID = "MuseumId";
 	public static final String Museum_name = "MuseumName";

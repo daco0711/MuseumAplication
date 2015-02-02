@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/jungle"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.museumaplication.LocationsActivity"
-    android:background="@drawable/jungle" >
+    tools:context="com.example.museumaplication.LocationsActivity" >
 
     <TableLayout
         android:id="@+id/tableLocations"
@@ -16,92 +16,91 @@
         android:layout_marginTop="100px"
         android:layout_weight="0"
         android:padding="5dp" >
-		
+
         <TableRow android:layout_height="wrap_content" >
+
             <TextView
                 android:id="@+id/locationNameNaslov"
                 android:layout_width="200px"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Location Name"
-                android:textColor="#FFF" 
-                android:layout_gravity="center"/>
+                android:textColor="#FFF" />
 
             <TextView
                 android:id="@+id/surfaceNaslov"
                 android:layout_width="200px"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_toRightOf="@+id/locationNameNaslov"
                 android:text="Surface"
-                android:textColor="#FFF"
-                android:layout_gravity="center" />
+                android:textColor="#FFF" />
 
             <TextView
                 android:id="@+id/stateNaslov"
                 android:layout_width="200px"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_toRightOf="@+id/surfaceNaslov"
                 android:text="State"
-                android:textColor="#FFF"
-                android:layout_gravity="center" />
+                android:textColor="#FFF" />
 
             <TextView
                 android:id="@+id/leasePriceNaslov"
                 android:layout_width="200px"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_toRightOf="@+id/stateNaslov"
                 android:text="Lease Price"
-                android:textColor="#FFF"
-                android:layout_gravity="center" />
-            
-            
+                android:textColor="#FFF" />
 
             <TextView
                 android:id="@+id/countryNaslov"
                 android:layout_width="200px"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/country"
+                android:layout_gravity="center"
                 android:layout_toRightOf="@+id/leasePriceNaslov"
                 android:text="Country"
-                android:textColor="#FFF"
-                android:layout_gravity="center" />
+                android:textColor="#FFF" />
         </TableRow>
-        
     </TableLayout>
-    
-     <RelativeLayout 
+
+    <RelativeLayout
         android:id="@+id/footerLocationsButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center">
-        
-         <Button 
-        android:id="@+id/buttonSearchLocations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:onClick="searchLocations"
-        android:height="50px"
-        android:textColor="#FF0000"/>
-         <Button
-         android:id="@+id/buttonAddLocations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:onClick="addLocations"
-        android:height="50px"
-        android:textColor="#FF0000"
-        android:layout_toRightOf="@+id/buttonSearchLocations"/>
-         <Button
-         android:id="@+id/buttonBackToMain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back to Main Menu"
-        android:onClick="backToMain"
-        android:height="50px"
-        android:textColor="#FF0000"
-        android:layout_toRightOf="@+id/buttonAddLocations"/>
-         
-        
-         </RelativeLayout>
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/buttonSearchLocations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:height="50px"
+            android:onClick="searchLocations"
+            android:text="Search"
+            android:textColor="#FF0000" />
+
+        <Button
+            android:id="@+id/buttonAddLocations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/buttonSearchLocations"
+            android:height="50px"
+            android:onClick="addLocations"
+            android:text="Add"
+            android:textColor="#FF0000" />
+
+        <Button
+            android:id="@+id/buttonBackToMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/buttonAddLocations"
+            android:height="50px"
+            android:onClick="backToMain"
+            android:text="Back to Main Menu"
+            android:textColor="#FF0000" />
+    </RelativeLayout>
+
 </RelativeLayout>
