@@ -1,8 +1,18 @@
 package com.example.museumaplication;
 
+import java.io.IOException;
+
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +20,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddExhibitsActivity extends ActionBarActivity {
+	public static final String addExhibits = "addExhibits";
+	public static final String addExhibitsAction = "MuseumService/AddExhibits";
 	//private Integer locationID = null;
 	//private Integer orderFormID = null;
 	@Override
@@ -38,30 +50,91 @@ public class AddExhibitsActivity extends ActionBarActivity {
 	}
 	public void addExhibits(View view){
 		EditText txttype = (EditText) findViewById(R.id.etAddExhibitsType);
-		String type = txttype.getText().toString(); 
+		final String type = txttype.getText().toString(); 
 		EditText txtDimensions = (EditText) findViewById(R.id.etAddExhibitsDimensions);
-		String dimensions = txtDimensions.getText().toString();
+		final String dimensions = txtDimensions.getText().toString();
 		EditText txtHistoricPeriod = (EditText) findViewById(R.id.etAddExhibitsJurassicPeriod);
-		String period = txtHistoricPeriod.getText().toString();
+		final String period = txtHistoricPeriod.getText().toString();
 		EditText txtLocationIDFK = (EditText) findViewById(R.id.etAddExhibitsLocationIDFK);
-		String locationIDFK = txtLocationIDFK.getText().toString();
+		final String locationIDFK = txtLocationIDFK.getText().toString();
 		EditText txtOrderFormIDFK = (EditText) findViewById(R.id.etAddExhibitsOrderFormsIDFK);
-		String orderForm = txtOrderFormIDFK.getText().toString();
-		if(type.equals("") && dimensions.equals("") && period.equals("") && locationIDFK.equals("")){
-			Toast.makeText(this, "You must enter all required fields!",	Toast.LENGTH_LONG).show();
-		}
-		else{
-			//locationID = Integer.parseInt(locationIDFK);
-			//orderFormID = Integer.parseInt(orderForm);
-			
-			Intent intent = new Intent(this,ExhibitsActivity.class);
-			intent.putExtra(ExhibitsActivity.addType, type);
-			intent.putExtra(ExhibitsActivity.addDimensions, dimensions);
-			intent.putExtra(ExhibitsActivity.addPeriod, period);
-			intent.putExtra(ExhibitsActivity.addLocationID, locationIDFK);
-			intent.putExtra(ExhibitsActivity.addOrderFormIDFK, orderForm);
-			startActivity(intent);
-		}
+		final String orderForm = txtOrderFormIDFK.getText().toString();
+		
+		try {
+			 Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						Log.i(ExhibitsActivity.TAG, "RUN ADD Exhibits: " + type + ", " + dimensions + ", " + period + ", " + locationIDFK + orderForm);
+						SoapObject request = new SoapObject(LocationsActivity.namespace,addExhibits);
+						PropertyInfo propType = new PropertyInfo();
+						propType.name = "type";
+						propType.type = PropertyInfo.STRING_CLASS;
+						request.addProperty(propType, type);
+						
+						PropertyInfo propDimensions = new PropertyInfo();
+						propDimensions.name = "dimensions";
+						propDimensions.type = PropertyInfo.STRING_CLASS;
+						request.addProperty(propDimensions,dimensions);
+						
+						PropertyInfo propPeriod = new PropertyInfo();
+						propPeriod.name = "historicPeriod";
+						propPeriod.type = PropertyInfo.STRING_CLASS;
+						request.addProperty(propPeriod,period);
+						
+						PropertyInfo propLocationIDFK = new PropertyInfo();
+						propLocationIDFK.name = "locationIdFK";
+						propLocationIDFK.type = PropertyInfo.INTEGER_CLASS;
+						request.addProperty(propLocationIDFK,locationIDFK);
+						
+						
+						
+						PropertyInfo propOrderFormIDFK = new PropertyInfo();
+						propOrderFormIDFK.name = "orderFormIdFK";
+						propOrderFormIDFK.type = PropertyInfo.INTEGER_CLASS;
+						request.addProperty(propOrderFormIDFK,orderForm);
+						
+						
+						
+						SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER10);
+						envelope.dotNet = true;
+						envelope.setOutputSoapObject(request);
+						HttpTransportSE transport = new HttpTransportSE(ExhibitsActivity.URL);
+						Log.i(ExhibitsActivity.TAG, "Pozivam WCF... [" + ExhibitsActivity.URL + "]");
+						try {
+							Log.i(ExhibitsActivity.TAG, "before call");
+							transport.debug = true;
+							transport.call(addExhibitsAction, envelope);
+							Log.i(ExhibitsActivity.TAG, "after call");
+						
+						} catch (IOException e) {
+							e.printStackTrace();
+						} catch (XmlPullParserException e) {
+							Log.i(LocationsActivity.TAg, "XML pull");
+							e.printStackTrace();
+							
+							
+						}
+						Log.i(ExhibitsActivity.TAG, "type" + type);
+						Log.i(ExhibitsActivity.TAG, "dimensions" + dimensions);
+						Log.i(ExhibitsActivity.TAG, "period" + period);
+						Log.i(ExhibitsActivity.TAG, "locationIDFK" + locationIDFK);
+						Log.i(ExhibitsActivity.TAG, "orderFormIDFK" + orderForm);
+						Intent intent = new Intent(AddExhibitsActivity.this,
+								ExhibitsActivity.class);
+						startActivity(intent);
+					}
+					
+				});
+				t.start();
+				try {
+					t.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+		 } catch (Exception e) {
+				e.printStackTrace();
+			}
+			 
 		
 	}
 	public void backToExhibits(View view){

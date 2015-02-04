@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 public class UpdateLocationActivity extends ActionBarActivity {
 	private Integer locationID = null;
-	public static final String ip = "192.168.1.3";
+	public static final String ip = "192.168.1.5";
 	public static final int port = 80;
 	public static final String locationName = "LocationName";
 	public static final String surface = "Surface";
